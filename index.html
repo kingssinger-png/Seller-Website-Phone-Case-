@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelShield - Premium Cases for Google Pixel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        pixel: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-in { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .hover-lift { transition: transform 0.2s, box-shadow 0.2s; }
+        .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.15); }
+        .color-option { transition: all 0.2s; }
+        .color-option.active { ring-width: 2px; ring-offset-width: 2px; transform: scale(1.1); }
+        .model-btn.active { background-color: #0ea5e9; color: white; border-color: #0ea5e9; }
+        .cart-badge { animation: bounce 0.3s; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-900 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md border-b border-gray-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('home')">
+                    <div class="w-8 h-8 bg-pixel-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight">Pixel<span class="text-pixel-600">Shield</span></span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" onclick="showPage('home')" class="text-gray-700 hover:text-pixel-600 font-medium transition">Home</a>
+                    <a href="#products" onclick="scrollToProducts()" class="text-gray-700 hover:text-pixel-600 font-medium transition">Shop</a>
+                    <a href="#" onclick="showPage('about')" class="text-gray-700 hover:text-pixel-600 font-medium transition">About</a>
+                    <a href="#" onclick="showPage('support')" class="text-gray-700 hover:text-pixel-600 font-medium transition">Support</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleCart()" class="relative p-2 hover:bg-gray-100 rounded-full transition">
+                        <i class="fas fa-shopping-bag text-gray-700 text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-pixel-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-gray-700 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-xl font-bold">Menu</span>
+                <button onclick="toggleMobileMenu()" class="p-2"><i class="fas fa-times text-2xl"></i></button>
+            </div>
+            <div class="space-y-4">
+                <a href="#" onclick="showPage('home'); toggleMobileMenu()" class="block text-lg font-medium py-2 border-b">Home</a>
+                <a href="#" onclick="scrollToProducts(); toggleMobileMenu()" class="block text-lg font-medium py-2 border-b">Shop</a>
+                <a href="#" onclick="showPage('about'); toggleMobileMenu()" class="block text-lg font-medium py-2 border-b">About</a>
+                <a href="#" onclick="showPage('support'); toggleMobileMenu()" class="block text-lg font-medium py-2 border-b">Support</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <h2 class="text-xl font-bold">Shopping Cart (<span id="cart-total-items">0</span>)</h2>
+            <button onclick="toggleCart()" class="p-2 hover:bg-gray-200 rounded-full"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <div class="text-center py-12 text-gray-400">
+                <i class="fas fa-shopping-bag text-4xl mb-4"></i>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+
+        <div class="p-6 border-t bg-gray-50">
+            <div class="space-y-2 mb-4">
+                <div class="flex justify-between text-gray-600"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+                <div class="flex justify-between text-gray-600"><span>Shipping</span><span id="cart-shipping">Free</span></div>
+                <div class="flex justify-between text-gray-600"><span>Tax</span><span id="cart-tax">$0.00</span></div>
+                <div class="flex justify-between text-xl font-bold pt-2 border-t"><span>Total</span><span id="cart-total">$0.00</span></div>
+            </div>
+            <button onclick="showCheckout()" id="checkout-btn" class="w-full bg-pixel-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-pixel-700 transition shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                Proceed to Checkout
+            </button>
+            <p class="text-xs text-center text-gray-500 mt-3"><i class="fas fa-lock mr-1"></i> Secure SSL Encryption</p>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 z-30 hidden" onclick="closeAllDrawers()"></div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-16">
+        
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-br from-gray-900 via-gray-800 to-pixel-900 text-white overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-20 left-10 w-72 h-72 bg-pixel-500 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
+                <div class="md:w-2/3">
+                    <div class="inline-block px-4 py-1 bg-pixel-500/20 rounded-full text-pixel-300 text-sm font-semibold mb-6 border border-pixel-500/30">
+                        New: Pixel 9 Series Cases Available
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        Protection Meets<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-pixel-400 to-purple-400">Pixel Perfection</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8 max-w-lg">
+                        Military-grade protection designed exclusively for Google Pixel. Slim, sustainable, and stylish cases that complement your phone's design.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="scrollToProducts()" class="bg-white text-gray-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition shadow-xl">
+                            Shop Now
+                        </button>
+                        <button onclick="showPage('about')" class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition">
+                            Our Story
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-6 mt-12 text-sm text-gray-400">
+                        <span class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> Free Shipping over $35</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> 30-Day Returns</span>
+                        <span class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> Lifetime Warranty</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Badges -->
+        <section class="bg-white border-b">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="flex flex-col items-center gap-2">
+                        <i class="fas fa-shipping-fast text-2xl text-pixel-600"></i>
+                        <span class="font-semibold text-sm">Free Fast Shipping</span>
+                        <span class="text-xs text-gray-500">2-3 Business Days</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <i class="fas fa-undo text-2xl text-pixel-600"></i>
+                        <span class="font-semibold text-sm">Easy Returns</span>
+                        <span class="text-xs text-gray-500">30-Day Money Back</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <i class="fas fa-shield-alt text-2xl text-pixel-600"></i>
+                        <span class="font-semibold text-sm">Drop Protection</span>
+                        <span class="text-xs text-gray-500">10ft Military Grade</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2">
+                        <i class="fas fa-leaf text-2xl text-pixel-600"></i>
+                        <span class="font-semibold text-sm">Eco-Friendly</span>
+                        <span class="text-xs text-gray-500">Recycled Materials</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Selector -->
+        <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-3">Choose Your Pixel Model</h2>
+                <p class="text-gray-600">Select your device to see compatible cases</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="model-selector">
+                <button onclick="selectModel('pixel9pro')" class="model-btn active px-6 py-3 rounded-full border-2 border-gray-200 font-semibold transition" data-model="pixel9pro">
+                    Pixel 9 Pro
+                </button>
+                <button onclick="selectModel('pixel9')" class="model-btn px-6 py-3 rounded-full border-2 border-gray-200 font-semibold transition" data-model="pixel9">
+                    Pixel 9
+                </button>
+                <button onclick="selectModel('pixel8pro')" class="model-btn px-6 py-3 rounded-full border-2 border-gray-200 font-semibold transition" data-model="pixel8pro">
+                    Pixel 8 Pro
+                </button>
+                <button onclick="selectModel('pixel8')" class="model-btn px-6 py-3 rounded-full border-2 border-gray-200 font-semibold transition" data-model="pixel8">
+                    Pixel 8
+                </button>
+                <button onclick="selectModel('pixel7pro')" class="model-btn px-6 py-3 rounded-full border-2 border-gray-200 font-semibold transition" data-model="pixel7pro">
+                    Pixel 7 Pro
+                </button>
+                <button onclick="selectModel('pixel7')" class="model-btn px-6 py-3 rounded-full border-2 border-gray-200 font-semibold transition" data-model="pixel7">
+                    Pixel 7
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Products will be injected here -->
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="bg-gray-100 py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-6">Engineered for the<br>Way You Live</h2>
+                        <div class="space-y-6">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-pixel-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-mobile-alt text-pixel-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Wireless Charging Compatible</h3>
+                                    <p class="text-gray-600">Works seamlessly with Qi chargers and Pixel Stand. No need to remove the case.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-pixel-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-fingerprint text-pixel-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Raised Bezels</h3>
+                                    <p class="text-gray-600">1.5mm raised edges protect your camera and screen from scratches and drops.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 bg-pixel-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-hand-holding-water text-pixel-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-1">Anti-Slip Grip</h3>
+                                    <p class="text-gray-600">Textured sides provide confident handling, reducing accidental drops by 40%.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-pixel-500 to-purple-600 rounded-3xl p-8 text-white shadow-2xl">
+                            <div class="text-center mb-6">
+                                <i class="fas fa-quote-left text-4xl opacity-50 mb-4"></i>
+                                <p class="text-xl italic leading-relaxed">"Finally a case that doesn't hide the beauty of my Pixel. The fit is perfect and the buttons are super responsive. Best purchase I've made for my phone."</p>
+                            </div>
+                            <div class="flex items-center justify-center gap-3">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold">JD</div>
+                                <div class="text-left">
+                                    <div class="font-bold">James D.</div>
+                                    <div class="text-sm opacity-80">Verified Buyer · Pixel 9 Pro</div>
+                                </div>
+                            </div>
+                            <div class="flex justify-center gap-1 mt-3 text-yellow-300">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="bg-gray-900 text-white py-16">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-4">Join the PixelShield Family</h2>
+                <p class="text-gray-400 mb-8">Get 15% off your first order and exclusive access to new releases.</p>
+                <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pixel-500">
+                    <button class="px-8 py-3 bg-pixel-600 rounded-full font-bold hover:bg-pixel-500 transition">Subscribe</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Shop</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-white transition">Pixel 9 Series</a></li>
+                            <li><a href="#" class="hover:text-white transition">Pixel 8 Series</a></li>
+                            <li><a href="#" class="hover:text-white transition">Pixel 7 Series</a></li>
+                            <li><a href="#" class="hover:text-white transition">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Support</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-white transition">Shipping Info</a></li>
+                            <li><a href="#" class="hover:text-white transition">Returns & Warranty</a></li>
+                            <li><a href="#" class="hover:text-white transition">Size Guide</a></li>
+                            <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Company</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                            <li><a href="#" class="hover:text-white transition">Sustainability</a></li>
+                            <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                            <li><a href="#" class="hover:text-white transition">Press</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4">Connect</h4>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pixel-600 transition"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pixel-600 transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pixel-600 transition"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                    <p> PixelShield Inc. All rights reserved.</p>
+                    <div class="flex gap-6">
+                        <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                        <a href="#" class="hover:text-white transition">Terms of Service</a>
+                        <a href="#" class="hover:text-white transition">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        <div class="absolute inset-4 md:inset-10 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-w-5xl mx-auto">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="md:w-1/2 bg-gray-100 p-8 flex items-center justify-center">
+                <img id="modal-img" src="" alt="" class="max-h-full max-w-full object-contain drop-shadow-2xl">
+            </div>
+            
+            <div class="md:w-1/2 p-8 overflow-y-auto">
+                <div class="mb-2 text-sm text-pixel-600 font-semibold uppercase tracking-wider" id="modal-model"></div>
+                <h2 id="modal-title" class="text-3xl font-bold mb-2"></h2>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="flex text-yellow-400 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="text-sm text-gray-500">(128 reviews)</span>
+                </div>
+                <div id="modal-price" class="text-3xl font-bold text-gray-900 mb-6"></div>
+                
+                <p id="modal-desc" class="text-gray-600 mb-6 leading-relaxed"></p>
+                
+                <div class="mb-6">
+                    <label class="block font-semibold mb-3">Color</label>
+                    <div class="flex gap-3" id="modal-colors"></div>
+                </div>
+                
+                <div class="mb-8">
+                    <label class="block font-semibold mb-3">Quantity</label>
+                    <div class="flex items-center gap-4">
+                        <button onclick="updateModalQty(-1)" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-pixel-600 hover:text-pixel-600 transition"><i class="fas fa-minus"></i></button>
+                        <span id="modal-qty" class="text-xl font-bold w-8 text-center">1</span>
+                        <button onclick="updateModalQty(1)" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-pixel-600 hover:text-pixel-600 transition"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <button onclick="addToCartFromModal()" class="w-full bg-pixel-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-pixel-700 transition shadow-lg flex items-center justify-center gap-2">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart - <span id="modal-btn-price"></span>
+                    </button>
+                    <button class="w-full border-2 border-gray-200 py-4 rounded-xl font-bold text-lg hover:border-gray-400 transition flex items-center justify-center gap-2">
+                        <i class="far fa-heart"></i> Add to Wishlist
+                    </button>
+                </div>
+
+                <div class="mt-6 pt-6 border-t grid grid-cols-3 gap-4 text-center text-sm">
+                    <div><i class="fas fa-truck text-pixel-600 mb-1 block"></i>Free Shipping</div>
+                    <div><i class="fas fa-shield-alt text-pixel-600 mb-1 block"></i>2-Year Warranty</div>
+                    <div><i class="fas fa-undo text-pixel-600 mb-1 block"></i>30-Day Returns</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="min-h-screen px-4 text-center">
+            <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCheckout()"></div>
+            <span class="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+            <div class="inline-block w-full max-w-2xl p-6 my-8 text-left align-middle bg-white rounded-2xl shadow-xl transform transition-all relative">
+                <button onclick="closeCheckout()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times text-xl"></i></button>
+                
+                <div id="checkout-step-1">
+                    <h2 class="text-2xl font-bold mb-6">Secure Checkout</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold mb-3 flex items-center gap-2"><span class="w-6 h-6 bg-pixel-600 text-white rounded-full flex items-center justify-center text-sm">1</span> Contact Information</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="text" placeholder="First Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                                <input type="text" placeholder="Last Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                            </div>
+                            <input type="email" placeholder="Email" class="w-full mt-4 px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold mb-3 flex items-center gap-2"><span class="w-6 h-6 bg-pixel-600 text-white rounded-full flex items-center justify-center text-sm">2</span> Shipping Address</h3>
+                            <input type="text" placeholder="Street Address" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none mb-4">
+                            <div class="grid grid-cols-3 gap-4">
+                                <input type="text" placeholder="City" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                                <input type="text" placeholder="State" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                                <input type="text" placeholder="ZIP" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-semibold mb-3 flex items-center gap-2"><span class="w-6 h-6 bg-pixel-600 text-white rounded-full flex items-center justify-center text-sm">3</span> Payment Method</h3>
+                            <div class="border rounded-lg p-4 bg-gray-50">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <input type="radio" checked class="w-4 h-4 text-pixel-600">
+                                    <span class="font-medium">Credit / Debit Card</span>
+                                    <div class="ml-auto flex gap-2">
+                                        <i class="fab fa-cc-visa text-2xl text-gray-600"></i>
+                                        <i class="fab fa-cc-mastercard text-2xl text-gray-600"></i>
+                                        <i class="fab fa-cc-amex text-2xl text-gray-600"></i>
+                                    </div>
+                                </div>
+                                <input type="text" placeholder="Card Number" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none mb-3">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="text" placeholder="MM/YY" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                                    <input type="text" placeholder="CVC" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-pixel-500 focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <div class="flex justify-between mb-2"><span class="text-gray-600">Subtotal</span><span id="checkout-subtotal" class="font-medium"></span></div>
+                            <div class="flex justify-between mb-2"><span class="text-gray-600">Shipping</span><span class="font-medium text-green-600">Free</span></div>
+                            <div class="flex justify-between mb-2"><span class="text-gray-600">Tax</span><span id="checkout-tax" class="font-medium"></span></div>
+                            <div class="flex justify-between text-xl font-bold pt-2 border-t"><span>Total</span><span id="checkout-total"></span></div>
+                        </div>
+
+                        <button onclick="processOrder()" class="w-full bg-pixel-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-pixel-700 transition shadow-lg">
+                            Complete Order
+                        </button>
+                        <p class="text-xs text-center text-gray-500"><i class="fas fa-lock mr-1"></i> Your payment information is encrypted and secure</p>
+                    </div>
+                </div>
+
+                <div id="checkout-step-2" class="hidden text-center py-12">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-check text-4xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-2">Order Confirmed!</h2>
+                    <p class="text-gray-600 mb-6">Thank you for your purchase. We've sent a confirmation email to you.</p>
+                    <div class="bg-gray-50 rounded-xl p-6 mb-6 text-left max-w-md mx-auto">
+                        <div class="text-sm text-gray-500 mb-1">Order Number</div>
+                        <div class="font-bold text-lg mb-4">PS-<span id="order-number"></span></div>
+                        <div class="text-sm text-gray-500 mb-1">Estimated Delivery</div>
+                        <div class="font-medium">June 4 - June 6, 2026</div>
+                    </div>
+                    <button onclick="closeCheckout(); clearCart();" class="bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product Data
+        const products = {
+            pixel9pro: [
+                { id: 'p9p-1', name: 'Ultra Slim Clear Case', price: 24.99, image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop', colors: ['clear', 'frost'], desc: 'Crystal clear protection that shows off your Pixel 9 Pro. Made with anti-yellowing TPU and PC materials.' },
+                { id: 'p9p-2', name: 'Rugged Armor Case', price: 34.99, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop', colors: ['black', 'navy', 'gray'], desc: 'Military-grade drop protection with reinforced corners. Perfect for outdoor adventures and daily durability.' },
+                { id: 'p9p-3', name: 'Silicone Soft Touch', price: 29.99, image: 'https://images.unsplash.com/photo-1543512214-318c77a07298?w=500&h=500&fit=crop', colors: ['coral', 'sage', 'charcoal', 'sky'], desc: 'Premium liquid silicone with a silky soft-touch finish. Microfiber lining protects against scratches.' },
+                { id: 'p9p-4', name: 'Leather Wallet Case', price: 44.99, image: 'https://images.unsplash.com/photo-1556656793-02715d8dd660?w=500&h=500&fit=crop', colors: ['brown', 'black', 'tan'], desc: 'Genuine leather with 3 card slots and cash pocket. Magnetic closure keeps everything secure.' },
+                { id: 'p9p-5', name: 'Frosted Matte Case', price: 19.99, image: 'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500&h=500&fit=crop', colors: ['white', 'black', 'green'], desc: 'Ultra-thin 0.35mm profile with frosted matte texture. Resists fingerprints and provides basic scratch protection.' },
+                { id: 'p9p-6', name: 'Glitter Crystal Case', price: 27.99, image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop', colors: ['rose', 'silver', 'gold'], desc: 'Sparkling glitter embedded in shock-absorbent TPU. Adds glamour while protecting against drops up to 8ft.' }
+            ],
+            pixel9: [
+                { id: 'p9-1', name: 'Ultra Slim Clear Case', price: 22.99, image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop', colors: ['clear', 'frost'], desc: 'Crystal clear protection that shows off your Pixel 9. Anti-yellowing technology keeps it looking new.' },
+                { id: 'p9-2', name: 'Rugged Armor Case', price: 32.99, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop', colors: ['black', 'navy', 'red'], desc: 'Heavy-duty protection with air cushion technology in all corners. Meets MIL-STD-810G standards.' },
+                { id: 'p9-3', name: 'Silicone Soft Touch', price: 27.99, image: 'https://images.unsplash.com/photo-1543512214-318c77a07298?w=500&h=500&fit=crop', colors: ['coral', 'sage', 'charcoal'], desc: 'Buttery soft liquid silicone with precise cutouts. Wireless charging compatible without removing case.' },
+                { id: 'p9-4', name: 'Fabric Woven Case', price: 29.99, image: 'https://images.unsplash.com/photo-1556656793-02715d8dd660?w=500&h=500&fit=crop', colors: ['gray', 'blue', 'green'], desc: 'Knit fabric over a hard shell provides unique texture and grip. Made from recycled ocean plastic.' }
+            ],
+            pixel8pro: [
+                { id: 'p8p-1', name: 'Clear View Case', price: 19.99, image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop', colors: ['clear'], desc: 'Showcase your Pixel 8 Pro with this crystal clear, slim-fitting case.' },
+                { id: 'p8p-2', name: 'Tough Armor', price: 29.99, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop', colors: ['black', 'gunmetal'], desc: 'Dual-layer protection with built-in kickstand for hands-free viewing.' },
+                { id: 'p8p-3', name: 'Leather Folio', price: 39.99, image: 'https://images.unsplash.com/photo-1556656793-02715d8dd660?w=500&h=500&fit=crop', colors: ['brown', 'black'], desc: 'Premium leather folio with stand function and card storage.' }
+            ],
+            pixel8: [
+                { id: 'p8-1', name: 'Slim Fit Case', price: 17.99, image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop', colors: ['black', 'clear'], desc: 'Minimalist design with maximum protection. Perfect for everyday use.' },
+                { id: 'p8-2', name: 'Shockproof Bumper', price: 24.99, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop', colors: ['red', 'blue', 'black'], desc: 'Reinforced bumper frame absorbs impact from drops and bumps.' }
+            ],
+            pixel7pro: [
+                { id: 'p7p-1', name: 'Classic Clear', price: 16.99, image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop', colors: ['clear'], desc: 'Transparent protection for your Pixel 7 Pro.' },
+                { id: 'p7p-2', name: 'Rugged Shield', price: 26.99, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop', colors: ['black', 'camo'], desc: 'Heavy duty case with belt clip holster included.' }
+            ],
+            pixel7: [
+                { id: 'p7-1', name: 'Essential Clear', price: 14.99, image: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop', colors: ['clear', 'smoke'], desc: 'Basic protection at an unbeatable price.' },
+                { id: 'p7-2', name: 'Grip Case', price: 21.99, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop', colors: ['black', 'navy'], desc: 'Textured sides for ultimate grip confidence.' }
+            ]
+        };
+
+        const colorMap = {
+            clear: '#e5e7eb', frost: '#f3f4f6', black: '#1f2937', navy: '#1e3a8a', gray: '#6b7280',
+            coral: '#fb7185', sage: '#86efac', charcoal: '#374151', sky: '#7dd3fc',
+            brown: '#92400e', tan: '#d97706', white: '#ffffff', green: '#15803d',
+            rose: '#fda4af', silver: '#c0c0c0', gold: '#fbbf24', red: '#dc2626',
+            gunmetal: '#4b5563', camo: '#3f6212', smoke: '#9ca3af', blue: '#2563eb'
+        };
+
+        let cart = [];
+        let currentModel = 'pixel9pro';
+        let currentProduct = null;
+        let modalQty = 1;
+        let selectedColor = null;
+
+        function selectModel(model) {
+            currentModel = model;
+            document.querySelectorAll('.model-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.model === model);
+            });
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const modelProducts = products[currentModel] || [];
+            
+            grid.innerHTML = modelProducts.map((product, index) => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover-lift border border-gray-100 fade-in" style="animation-delay: ${index * 0.1}s">
+                    <div class="relative aspect-square bg-gray-50 p-6 cursor-pointer" onclick="openProductModal('${product.id}')">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain mix-blend-multiply">
+                        <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition">
+                            <i class="far fa-heart text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="flex gap-1">
+                                ${product.colors.slice(0, 3).map(c => `<div class="w-3 h-3 rounded-full border border-gray-200" style="background-color: ${colorMap[c] || c}"></div>`).join('')}
+                                ${product.colors.length > 3 ? `<span class="text-xs text-gray-400">+${product.colors.length - 3}</span>` : ''}
+                            </div>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1 cursor-pointer hover:text-pixel-600 transition" onclick="openProductModal('${product.id}')">${product.name}</h3>
+                        <p class="text-gray-500 text-sm mb-4 line-clamp-2">${product.desc}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold">$${product.price.toFixed(2)}</span>
+                            <button onclick="quickAdd('${product.id}')" class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-pixel-600 transition flex items-center gap-2">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openProductModal(productId) {
+            const product = findProduct(productId);
+            if (!product) return;
+            
+            currentProduct = product;
+            modalQty = 1;
+            selectedColor = product.colors[0];
+            
+            document.getElementById('modal-img').src = product.image;
+            document.getElementById('modal-title').textContent = product.name;
+            document.getElementById('modal-model').textContent = currentModel.replace('pixel', 'Pixel ').replace('pro', ' Pro');
+            document.getElementById('modal-price').textContent = `$${product.price.toFixed(2)}`;
+            document.getElementById('modal-desc').textContent = product.desc;
+            document.getElementById('modal-btn-price').textContent = `$${product.price.toFixed(2)}`;
+            document.getElementById('modal-qty').textContent = modalQty;
+            
+            const colorsContainer = document.getElementById('modal-colors');
+            colorsContainer.innerHTML = product.colors.map(color => `
+                <button onclick="selectModalColor('${color}')" class="color-option w-10 h-10 rounded-full border-2 ${selectedColor === color ? 'border-pixel-600 ring-2 ring-pixel-200' : 'border-gray-200'} shadow-sm relative" style="background-color: ${colorMap[color] || color}">
+                    ${selectedColor === color ? '<i class="fas fa-check text-white absolute inset-0 flex items-center justify-center text-xs drop-shadow-md"></i>' : ''}
+                </button>
+            `).join('');
+            
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function selectModalColor(color) {
+            selectedColor = color;
+            const buttons = document.querySelectorAll('.color-option');
+            buttons.forEach(btn => {
+                const isSelected = btn.getAttribute('onclick').includes(`'${color}'`);
+                btn.className = `color-option w-10 h-10 rounded-full border-2 ${isSelected ? 'border-pixel-600 ring-2 ring-pixel-200' : 'border-gray-200'} shadow-sm relative`;
+                btn.innerHTML = isSelected ? '<i class="fas fa-check text-white absolute inset-0 flex items-center justify-center text-xs drop-shadow-md"></i>' : '';
+            });
+        }
+
+        function updateModalQty(delta) {
+            modalQty = Math.max(1, Math.min(10, modalQty + delta));
+            document.getElementById('modal-qty').textContent = modalQty;
+            document.getElementById('modal-btn-price').textContent = `$${(currentProduct.price * modalQty).toFixed(2)}`;
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function findProduct(id) {
+            for (const model in products) {
+                const found = products[model].find(p => p.id === id);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        function quickAdd(productId) {
+            const product = findProduct(productId);
+            if (product) {
+                addToCart(product, product.colors[0], 1);
+                showNotification(`Added ${product.name} to cart!`);
+            }
+        }
+
+        function addToCartFromModal() {
+            if (!currentProduct) return;
+            addToCart(currentProduct, selectedColor, modalQty);
+            closeProductModal();
+            showNotification(`Added ${modalQty}x ${currentProduct.name} (${selectedColor}) to cart!`);
+            openCart();
+        }
+
+        function addToCart(product, color, qty) {
+            const existing = cart.find(item => item.id === product.id && item.color === color);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ ...product, color, qty });
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartQty(index, delta) {
+            cart[index].qty = Math.max(1, cart[index].qty + delta);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            const countBadge = document.getElementById('cart-count');
+            countBadge.textContent = count;
+            countBadge.classList.toggle('hidden', count === 0);
+            if (count > 0) countBadge.classList.add('cart-badge');
+            setTimeout(() => countBadge.classList.remove('cart-badge'), 300);
+
+            document.getElementById('cart-total-items').textContent = count;
+            
+            const itemsContainer = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fas fa-shopping-bag text-4xl mb-4"></i>
+                        <p>Your cart is empty</p>
+                        <button onclick="toggleCart()" class="mt-4 text-pixel-600 font-semibold hover:underline">Start Shopping</button>
+                    </div>`;
+            } else {
+                itemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="flex gap-4 bg-gray-50 p-4 rounded-xl">
+                        <img src="${item.image}" class="w-20 h-20 object-contain bg-white rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm">${item.name}</h4>
+                            <p class="text-xs text-gray-500 mb-2">${item.color.charAt(0).toUpperCase() + item.color.slice(1)} · ${currentModel.replace('pixel', 'Pixel ').replace('pro', ' Pro')}</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <button onclick="updateCartQty(${index}, -1)" class="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-pixel-600 text-xs"><i class="fas fa-minus"></i></button>
+                                    <span class="text-sm font-medium w-4 text-center">${item.qty}</span>
+                                    <button onclick="updateCartQty(${index}, 1)" class="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-pixel-600 text-xs"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <span class="font-bold">$${(item.price * item.qty).toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-red-500 self-start"><i class="fas fa-times"></i></button>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const tax = subtotal * 0.08; // 8% tax example
+            const total = subtotal + tax;
+
+            document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('checkout-btn').disabled = cart.length === 0;
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !sidebar.classList.contains('translate-x-full');
+            
+            if (isOpen) {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            } else {
+                sidebar.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function openCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.remove('translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAllDrawers() {
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+            document.getElementById('overlay').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !menu.classList.contains('translate-x-full');
+            
+            if (isOpen) {
+                menu.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                menu.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        function showCheckout() {
+            toggleCart();
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const tax = subtotal * 0.08;
+            const total = subtotal + tax;
+            
+            document.getElementById('checkout-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('checkout-tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
+            
+            document.getElementById('checkout-step-1').classList.remove('hidden');
+            document.getElementById('checkout-step-2').classList.add('hidden');
+            document.getElementById('checkout-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function processOrder() {
+            document.getElementById('checkout-step-1').classList.add('hidden');
+            document.getElementById('checkout-step-2').classList.remove('hidden');
+            document.getElementById('order-number').textContent = Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+        }
+
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'fixed bottom-4 right-4 bg-gray-900 text-white px-6 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-3 fade-in';
+            notif.innerHTML = `<i class="fas fa-check-circle text-green-400"></i> ${message}`;
+            document.body.appendChild(notif);
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                notif.style.transform = 'translateY(10px)';
+                setTimeout(() => notif.remove(), 300);
+            }, 3000);
+        }
+
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showPage(page) {
+            // Simple page routing simulation
+            if (page === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                showNotification(`${page.charAt(0).toUpperCase() + page.slice(1)} page coming soon!`);
+            }
+        }
+
+        // Initialize
+        renderProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
