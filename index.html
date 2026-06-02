@@ -40,6 +40,17 @@
         .sticker { position: absolute; animation: wiggle 3s ease-in-out infinite; }
         @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
         .gradient-text { background: linear-gradient(135deg, #FF6B9D, #C77DFF, #95E1D3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pay-btn { transition: all 0.2s; position: relative; overflow: hidden; }
+        .pay-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .pay-btn:active { transform: translateY(0); }
+        .apple-pay-btn { background: #000; color: white; }
+        .google-pay-btn { background: #fff; color: #3C4043; border: 1px solid #DADCE0; }
+        .paypal-btn { background: #0070BA; color: white; }
+        .card-btn { background: #2D1B4E; color: white; }
+        .pay-divider { display: flex; align-items: center; text-align: center; color: #9CA3AF; font-size: 12px; }
+        .pay-divider::before, .pay-divider::after { content: ''; flex: 1; border-bottom: 1px solid #E5E7EB; }
+        .pay-divider::before { margin-right: 10px; }
+        .pay-divider::after { margin-left: 10px; }
     </style>
 </head>
 <body class="font-body bg-pop-cream text-pop-ink antialiased overflow-x-hidden">
@@ -95,20 +106,65 @@
                 <p class="text-sm mt-1">Time to treat yourself!</p>
             </div>
         </div>
+        
+        <!-- PAYMENT METHODS SECTION: All payment buttons integrated here -->
         <div class="p-6 border-t bg-pop-cream/50">
             <div class="space-y-2 mb-4 text-sm">
                 <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="cart-subtotal" class="font-medium">$0.00</span></div>
                 <div class="flex justify-between"><span class="text-gray-600">Shipping</span><span class="text-green-600 font-medium">Free over $35</span></div>
+                <div class="flex justify-between font-bold text-lg pt-2 border-t">
+                    <span>Total</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
             </div>
-            <div class="flex justify-between text-lg font-bold mb-4 pt-2 border-t">
-                <span>Total</span>
-                <span id="cart-total">$0.00</span>
+
+            <!-- PAYMENT INTERFACE: Apple Pay + Google Pay + PayPal + Card -->
+            <div id="payment-methods" class="space-y-2">
+                
+                <!-- Apple Pay Button (Hidden on non-Apple devices) -->
+                <div id="apple-pay-container" class="hidden">
+                    <button id="apple-pay-btn" onclick="initiateApplePay()" class="pay-btn apple-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.72 9.73c-.04-1.54.63-2.71 2.01-3.57-.77-1.11-1.93-1.72-3.47-1.84-1.46-.12-3.08.86-3.67.86-.62 0-2.08-.82-3.24-.82C7.87 4.39 5.03 6.9 5.03 10.03c0 .96.17 1.95.52 2.97.46 1.32 2.14 4.55 3.89 4.5 1.15-.02 1.96-.82 3.46-.82 1.46 0 2.24.82 3.67.79 1.52-.03 2.55-1.38 3.01-2.7.95-2.74.43-4.04-.84-5.04zM14.74 4.91c.79-.96 1.32-2.29 1.17-3.62-1.14.05-2.51.76-3.32 1.74-.73.87-1.37 2.27-1.2 3.6 1.27.1 2.57-.64 3.35-1.72z"/>
+                        </svg>
+                        Pay with Apple Pay
+                    </button>
+                </div>
+
+                <!-- Google Pay Button -->
+                <div id="google-pay-container">
+                    <button id="google-pay-btn" onclick="initiateGooglePay()" class="pay-btn google-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#EA4335" d="M12 5.04c1.66 0 3.15.6 4.32 1.77l3.24-3.24C17.54 1.35 14.97.24 12 .24 7.9.24 4.38 2.64 2.73 6.12l3.76 2.92c.88-2.62 3.38-4.52 6.26-4.52z"/>
+                            <path fill="#4285F4" d="M23.76 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h6.6c-.3 1.48-1.1 2.73-2.3 3.57l3.73 2.9c2.18-2.01 3.43-4.97 3.43-8.48z"/>
+                            <path fill="#FBBC05" d="M5.04 9.04L1.28 6.12C.46 7.74 0 9.57 0 11.5c0 1.93.46 3.76 1.28 5.38l3.76-2.92c-.5-1.48-.78-3.05-.78-4.68 0-1.63.28-3.2.78-4.68z"/>
+                            <path fill="#34A853" d="M12 23.76c3.24 0 5.96-1.08 7.94-2.92l-3.73-2.9c-1.08.73-2.46 1.16-4.15 1.16-2.88 0-5.38-1.9-6.26-4.52l-3.76 2.92C4.38 21.36 7.9 23.76 12 23.76z"/>
+                        </svg>
+                        Pay with Google Pay
+                    </button>
+                </div>
+
+                <!-- PayPal Button -->
+                <div id="paypal-button-container">
+                    <!-- PayPal SDK will inject button here -->
+                    <button onclick="initiatePayPal()" class="pay-btn paypal-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-paypal text-lg"></i>
+                        Pay with PayPal
+                    </button>
+                </div>
+
+                <div class="pay-divider my-2">or pay with card</div>
+
+                <!-- Credit Card (Stripe) -->
+                <button onclick="showCardCheckout()" class="pay-btn card-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+                    <i class="fas fa-credit-card"></i>
+                    Card •••• 4242
+                </button>
             </div>
-            <!-- PAYMENT LINK PLACEHOLDER: Integrate Stripe/PayPal checkout here -->
-            <button onclick="showCheckout()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg">
-                Checkout with Stripe ✦
-            </button>
-            <p class="text-xs text-center text-gray-500 mt-3">🔒 Secure payment. Ships from US/EU.</p>
+
+            <p class="text-xs text-center text-gray-400 mt-3">
+                <i class="fas fa-lock mr-1"></i> SSL Secure • PCI Compliant
+            </p>
         </div>
     </div>
 
@@ -330,6 +386,8 @@
                         <i class="fab fa-cc-mastercard"></i>
                         <i class="fab fa-cc-amex"></i>
                         <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-apple-pay"></i>
+                        <i class="fab fa-google-pay"></i>
                     </div>
                 </div>
             </div>
@@ -376,62 +434,50 @@
                     </div>
                 </div>
 
-                <!-- PAYMENT BUTTON PLACEHOLDER: Replace with Stripe Payment Link or Checkout Session -->
                 <button onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
                     Add to Bag — <span id="modal-btn-price"></span>
                 </button>
-                <button class="w-full border-2 border-pop-ink py-4 rounded-2xl font-bold hover:bg-pop-ink hover:text-white transition">
-                    Buy Now with PayPal
-                </button>
             </div>
         </div>
     </div>
 
-    <!-- Checkout Modal -->
-    <div id="checkout-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
-        <div class="min-h-screen px-4 text-center">
-            <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCheckout()"></div>
-            <span class="inline-block h-screen align-middle">&#8203;</span>
-            <div class="inline-block w-full max-w-lg p-6 my-8 text-left align-middle bg-white rounded-3xl shadow-xl relative">
-                <button onclick="closeCheckout()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
-                
-                <div id="checkout-step-1">
-                    <h2 class="font-display text-2xl font-bold mb-6">Almost Yours ✦</h2>
-                    
-                    <!-- STRIPE CHECKOUT INTEGRATION POINT -->
-                    <!-- Replace this entire section with Stripe Elements or redirect to Stripe Checkout -->
-                    <div class="bg-pop-cream/50 rounded-2xl p-6 mb-6 text-center">
-                        <i class="fab fa-stripe text-4xl text-pop-ink mb-3"></i>
-                        <p class="text-sm text-gray-600 mb-4">You'll be redirected to Stripe's secure checkout</p>
-                        <div class="text-left space-y-3 mb-4">
-                            <div class="flex justify-between text-sm"><span>Subtotal</span><span id="co-subtotal">$0.00</span></div>
-                            <div class="flex justify-between text-sm"><span>Shipping</span><span class="text-green-600">Free</span></div>
-                            <div class="flex justify-between font-bold text-lg pt-2 border-t"><span>Total</span><span id="co-total">$0.00</span></div>
-                        </div>
-                        <button onclick="processPayment()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
-                            Pay with Stripe <i class="fas fa-lock ml-2"></i>
-                        </button>
-                    </div>
-
-                    <p class="text-xs text-center text-gray-400">
-                        By placing this order, you agree to our Terms and Privacy Policy.<br>
-                        Prices shown in USD. Tax calculated at checkout.
-                    </p>
-                </div>
-
-                <div id="checkout-step-2" class="hidden text-center py-8">
-                    <div class="w-20 h-20 bg-pop-mint/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-check text-3xl text-pop-mint"></i>
-                    </div>
-                    <h2 class="font-display text-3xl font-bold mb-2">You're All Set!</h2>
-                    <p class="text-gray-600 mb-6">Check your email for confirmation.</p>
-                    <button onclick="closeCheckout(); clearCart();" class="bg-pop-ink text-white px-8 py-3 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
-                        Keep Shopping
-                    </button>
-                </div>
+    <!-- Card Checkout Modal (Stripe) -->
+    <div id="card-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCardModal()"></div>
+        <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
+            <button onclick="closeCardModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
+            
+            <h2 class="font-display text-2xl font-bold mb-6">Card Payment ✦</h2>
+            
+            <!-- STRIPE ELEMENTS MOUNT POINT -->
+            <div id="stripe-card-element" class="border-2 border-gray-200 rounded-xl p-4 mb-4 min-h-[50px] flex items-center">
+                <p class="text-gray-400 text-sm">Stripe Card Element will mount here</p>
             </div>
+            
+            <div class="flex justify-between text-sm mb-4">
+                <span class="text-gray-600">Total</span>
+                <span id="card-total" class="font-bold">$0.00</span>
+            </div>
+            
+            <button onclick="processCardPayment()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
+                Pay <span id="card-btn-total">$0.00</span>
+            </button>
+            
+            <p class="text-xs text-center text-gray-400 mt-3">
+                <i class="fas fa-lock mr-1"></i> Encrypted by Stripe
+            </p>
         </div>
     </div>
+
+    <!-- Payment SDK Scripts -->
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&intent=capture&components=buttons,funding-eligibility"></script>
+    
+    <!-- Apple Pay SDK (via Stripe or direct) -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <!-- Google Pay SDK -->
+    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 
     <script>
         // Sample product data - REPLACE WITH YOUR ACTUAL INVENTORY
@@ -451,6 +497,7 @@
         let currentProduct = null;
         let modalQty = 1;
         let selectedModel = models[0];
+        let stripe = null; // Will initialize with your key
 
         // Render products
         function renderProducts() {
@@ -543,6 +590,8 @@
                         <p class="font-medium">Your bag is empty</p>
                         <p class="text-sm mt-1">Time to treat yourself!</p>
                     </div>`;
+                // Hide payment methods when cart is empty
+                document.getElementById('payment-methods').classList.add('opacity-50', 'pointer-events-none');
             } else {
                 itemsDiv.innerHTML = cart.map((item, i) => `
                     <div class="flex gap-4 bg-gray-50 p-4 rounded-2xl">
@@ -558,6 +607,7 @@
                         <button onclick="removeFromCart(${i})" class="text-gray-400 hover:text-red-500 self-start"><i class="fas fa-times"></i></button>
                     </div>
                 `).join('');
+                document.getElementById('payment-methods').classList.remove('opacity-50', 'pointer-events-none');
             }
 
             const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -575,6 +625,7 @@
             } else {
                 drawer.classList.remove('translate-x-full');
                 overlay.classList.remove('hidden');
+                detectPaymentMethods(); // Check device capabilities when opening cart
             }
         }
 
@@ -597,37 +648,294 @@
             document.getElementById('overlay').classList.add('hidden');
         }
 
-        function showCheckout() {
-            toggleCart();
-            const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-            document.getElementById('co-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('co-total').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('checkout-step-1').classList.remove('hidden');
-            document.getElementById('checkout-step-2').classList.add('hidden');
-            document.getElementById('checkout-modal').classList.remove('hidden');
+        // ============================================
+        // PAYMENT METHOD DETECTION & INITIALIZATION
+        // ============================================
+
+        function detectPaymentMethods() {
+            // Apple Pay Detection
+            if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
+                document.getElementById('apple-pay-container').classList.remove('hidden');
+            } else {
+                document.getElementById('apple-pay-container').classList.add('hidden');
+            }
+
+            // Google Pay Detection (basic check)
+            // Google Pay button always shown, actual availability checked on click
+
+            // PayPal button always shown, rendered via SDK if available
+            if (cart.length > 0 && typeof paypal !== 'undefined') {
+                renderPayPalButton();
+            }
         }
 
-        function closeCheckout() {
-            document.getElementById('checkout-modal').classList.add('hidden');
+        // ============================================
+        // APPLE PAY INTEGRATION (via Stripe)
+        // ============================================
+
+        function initiateApplePay() {
+            // STRIPE APPLE PAY INTEGRATION POINT
+            // Requires: Stripe account + Apple Developer account + domain verification
+            
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            
+            // Example implementation:
+            /*
+            const paymentRequest = stripe.paymentRequest({
+                country: 'US',
+                currency: 'usd',
+                total: {
+                    label: 'CasePop',
+                    amount: Math.round(total * 100),
+                },
+                requestPayerName: true,
+                requestPayerEmail: true,
+                requestPayerPhone: true,
+                requestShipping: true,
+                shippingOptions: [
+                    { id: 'free', label: 'Free Shipping (3-5 days)', detail: '', amount: 0 },
+                    { id: 'express', label: 'Express (1-2 days)', detail: '', amount: 500 }
+                ]
+            });
+
+            paymentRequest.on('paymentmethod', async (ev) => {
+                // Confirm PaymentIntent with Apple Pay token
+                const {paymentIntent, error} = await stripe.confirmCardPayment(
+                    clientSecret,
+                    { payment_method: ev.paymentMethod.id },
+                    { handleActions: false }
+                );
+                
+                if (error) {
+                    ev.complete('fail');
+                } else {
+                    ev.complete('success');
+                    // Show success
+                }
+            });
+
+            paymentRequest.show();
+            */
+           
+            alert('Apple Pay integration placeholder. Connect Stripe + verify domain to activate.');
+            console.log('Apple Pay would process $' + total.toFixed(2));
         }
 
-        function processPayment() {
-            // STRIPE INTEGRATION POINT:
-            // Option A: Redirect to Stripe Checkout Session
-            // window.location.href = 'https://checkout.stripe.com/pay/cs_test_...';
+        // ============================================
+        // GOOGLE PAY INTEGRATION
+        // ============================================
+
+        function initiateGooglePay() {
+            // GOOGLE PAY INTEGRATION POINT
+            // Requires: Google Pay merchant account + payment processor (Stripe/PayPal/Braintree)
             
-            // Option B: Initialize Stripe Elements and confirm payment
-            // const stripe = Stripe('pk_test_...');
-            // stripe.redirectToCheckout({ sessionId: '...' });
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
             
-            // For demo, show success:
-            document.getElementById('checkout-step-1').classList.add('hidden');
-            document.getElementById('checkout-step-2').classList.remove('hidden');
+            // Example implementation:
+            /*
+            const paymentDataRequest = {
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                allowedPaymentMethods: [{
+                    type: 'CARD',
+                    parameters: {
+                        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                        allowedCardNetworks: ['VISA', 'MASTERCARD', 'AMEX']
+                    },
+                    tokenizationSpecification: {
+                        type: 'PAYMENT_GATEWAY',
+                        parameters: {
+                            gateway: 'stripe',
+                            stripe:version: '2022-11-15',
+                            stripe:publishableKey: 'pk_live_...'
+                        }
+                    }
+                }],
+                merchantInfo: {
+                    merchantId: 'YOUR_GOOGLE_MERCHANT_ID',
+                    merchantName: 'CasePop'
+                },
+                transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPrice: total.toFixed(2),
+                    currencyCode: 'USD',
+                    countryCode: 'US'
+                }
+            };
+
+            const paymentsClient = new google.payments.api.PaymentsClient({ environment: 'PRODUCTION' });
+            paymentsClient.loadPaymentData(paymentDataRequest).then(paymentData => {
+                // Send paymentData to backend for processing
+                processGooglePayToken(paymentData);
+            }).catch(err => console.error(err));
+            */
+            
+            alert('Google Pay integration placeholder. Register with Google Pay Business Console to activate.');
+            console.log('Google Pay would process $' + total.toFixed(2));
         }
+
+        // ============================================
+        // PAYPAL INTEGRATION
+        // ============================================
+
+        let paypalButtonRendered = false;
+
+        function renderPayPalButton() {
+            if (paypalButtonRendered) return;
+            
+            const container = document.getElementById('paypal-button-container');
+            container.innerHTML = ''; // Clear placeholder button
+            
+            // PAYPAL SDK INTEGRATION POINT
+            // Replace YOUR_PAYPAL_CLIENT_ID in the script tag above
+            
+            try {
+                paypal.Buttons({
+                    style: {
+                        layout: 'vertical',
+                        color: 'gold',
+                        shape: 'pill',
+                        label: 'paypal',
+                        height: 45
+                    },
+                    
+                    createOrder: function(data, actions) {
+                        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+                        if (total <= 0) return;
+                        
+                        // Option A: Frontend direct (testing only, not secure)
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: { 
+                                    value: total.toFixed(2), 
+                                    currency_code: 'USD' 
+                                },
+                                description: 'CasePop Order'
+                            }]
+                        });
+                        
+                        // Option B: Backend call (recommended for production)
+                        /*
+                        return fetch('/api/paypal/create-order', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({ cart: cart, total: total })
+                        }).then(res => res.json()).then(data => data.id);
+                        */
+                    },
+
+                    onApprove: function(data, actions) {
+                        // Option A: Frontend capture
+                        return actions.order.capture().then(function(details) {
+                            alert('Payment completed! Thank you, ' + details.payer.name.given_name);
+                            clearCart();
+                            toggleCart();
+                        });
+                        
+                        // Option B: Backend capture
+                        /*
+                        return fetch('/api/paypal/capture-order', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({ orderID: data.orderID })
+                        }).then(res => res.json()).then(details => {
+                            showSuccessModal(details);
+                            clearCart();
+                        });
+                        */
+                    },
+
+                    onError: function(err) {
+                        console.error('PayPal error:', err);
+                        alert('Payment could not be processed. Please try again.');
+                    }
+                }).render('#paypal-button-container');
+                
+                paypalButtonRendered = true;
+            } catch (e) {
+                console.error('PayPal SDK not loaded:', e);
+                // Fallback to placeholder button if SDK fails
+                container.innerHTML = `
+                    <button onclick="initiatePayPal()" class="pay-btn paypal-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
+                        <i class="fab fa-paypal text-lg"></i>
+                        Pay with PayPal
+                    </button>
+                `;
+            }
+        }
+
+        function initiatePayPal() {
+            // Fallback if SDK button fails to render
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            alert('PayPal integration placeholder. Total: $' + total.toFixed(2));
+        }
+
+        // ============================================
+        // STRIPE CARD PAYMENT
+        // ============================================
+
+        function showCardCheckout() {
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('card-total').textContent = '$' + total.toFixed(2);
+            document.getElementById('card-btn-total').textContent = '$' + total.toFixed(2);
+            document.getElementById('card-modal').classList.remove('hidden');
+            
+            // STRIPE ELEMENTS INITIALIZATION POINT
+            // Initialize Stripe with your publishable key
+            /*
+            if (!stripe) {
+                stripe = Stripe('pk_live_YOUR_STRIPE_KEY');
+            }
+            const elements = stripe.elements();
+            const cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#424770',
+                        '::placeholder': { color: '#aab7c4' }
+                    }
+                }
+            });
+            cardElement.mount('#stripe-card-element');
+            */
+        }
+
+        function closeCardModal() {
+            document.getElementById('card-modal').classList.add('hidden');
+        }
+
+        function processCardPayment() {
+            // STRIPE PAYMENT CONFIRMATION POINT
+            /*
+            const {paymentIntent, error} = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: { name: 'Jenny Rosen' }
+                }
+            });
+            
+            if (error) {
+                // Show error
+            } else {
+                // Payment successful
+                closeCardModal();
+                clearCart();
+                showSuccess();
+            }
+            */
+           
+            alert('Stripe card payment placeholder. Initialize Stripe Elements with your key to activate.');
+            closeCardModal();
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
 
         function clearCart() {
             cart = [];
             updateCartUI();
+            paypalButtonRendered = false; // Reset PayPal button for next time
         }
 
         // Initialize
