@@ -48,12 +48,15 @@
         .google-pay-btn { background: #fff; color: #3C4043; border: 1px solid #DADCE0; }
         .paypal-btn { background: #0070BA; color: white; }
         .card-btn { background: #2D1B4E; color: white; }
+        .stripe-btn { background: #635BFF; color: white; }
+        .stripe-btn:hover { background: #4f49cc; }
         .pay-divider { display: flex; align-items: center; text-align: center; color: #9CA3AF; font-size: 12px; }
         .pay-divider::before, .pay-divider::after { content: ''; flex: 1; border-bottom: 1px solid #E5E7EB; }
         .pay-divider::before { margin-right: 10px; }
         .pay-divider::after { margin-left: 10px; }
         .btn-disabled { background-color: #E5E7EB; color: #9CA3AF; cursor: not-allowed; border: none; }
         .btn-disabled:hover { background-color: #E5E7EB; color: #9CA3AF; }
+        .live-badge { background: linear-gradient(135deg, #00C853, #64DD17); }
     </style>
 </head>
 <body class="font-body bg-pop-cream text-pop-ink antialiased overflow-x-hidden">
@@ -120,6 +123,21 @@
             </div>
 
             <div id="payment-methods" class="space-y-2">
+                <!-- STRIPE PAYMENT LINK FOR CLOUD NINE DREAM - LIVE -->
+                <a id="stripe-payment-link" href="https://buy.stripe.com/7sYcN7exra7R0bP1113oAv" target="_blank" class="pay-btn stripe-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 block text-center">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
+                    </svg>
+                    Pay with Stripe — Cloud Nine Dream
+                </a>
+                
+                <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center">
+                    ⚡ LIVE PAYMENT — Cloud Nine Dream $22.99
+                </div>
+
+                <div class="pay-divider my-2">or other methods</div>
+
+                <!-- Apple Pay Button (Hidden on non-Apple devices) -->
                 <div id="apple-pay-container" class="hidden">
                     <button id="apple-pay-btn" onclick="initiateApplePay()" class="pay-btn apple-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -129,6 +147,7 @@
                     </button>
                 </div>
 
+                <!-- Google Pay Button -->
                 <div id="google-pay-container">
                     <button id="google-pay-btn" onclick="initiateGooglePay()" class="pay-btn google-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -141,6 +160,7 @@
                     </button>
                 </div>
 
+                <!-- PayPal Button -->
                 <div id="paypal-button-container">
                     <button onclick="initiatePayPal()" class="pay-btn paypal-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <i class="fab fa-paypal text-lg"></i>
@@ -150,6 +170,7 @@
 
                 <div class="pay-divider my-2">or pay with card</div>
 
+                <!-- Credit Card (Stripe) -->
                 <button onclick="showCardCheckout()" class="pay-btn card-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                     <i class="fas fa-credit-card"></i>
                     Card •••• 4242
@@ -203,7 +224,7 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-pop-pink/20 to-pop-lavender/20 rounded-[3rem] rotate-3"></div>
                     <img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" alt="Cloud phone case" class="relative rounded-[2.5rem] shadow-2xl object-cover w-full h-full -rotate-3 hover:rotate-0 transition duration-500">
                     <div class="sticker -top-4 -right-4 bg-pop-butter px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm">
-                        Coming Soon ⭐
+                        Best Seller ⭐
                     </div>
                     <div class="sticker bottom-8 -left-8 bg-white px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm" style="animation-delay: -1.5s">
                         $22.99 ✦
@@ -488,9 +509,18 @@
                     </div>
                 </div>
 
-                <button onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
-                    Add to Bag — <span id="modal-btn-price"></span>
-                </button>
+                <!-- STRIPE PAYMENT LINK BUTTON FOR CLOUD NINE DREAM - LIVE -->
+                <a id="modal-stripe-link" href="https://buy.stripe.com/7sYcN7exra7R0bP1113oAv" target="_blank" class="pay-btn stripe-btn w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 block text-center mb-3">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
+                    </svg>
+                    Buy Now — $22.99
+                </a>
+                
+                <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center mb-3">
+                    ⚡ LIVE PAYMENT — Stripe Checkout
+                </div>
+
                 <p class="text-xs text-gray-400 text-center">Shipping calculated at checkout. No returns.</p>
             </div>
         </div>
@@ -546,11 +576,6 @@
         </div>
     </div>
 
-    <!-- Payment SDK Scripts -->
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&intent=capture&components=buttons,funding-eligibility"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
-
     <script>
         // 5 SKU PRODUCT DATA
         const products = [
@@ -561,7 +586,8 @@
                 tag: "Best Seller",
                 image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg",
                 desc: "3D fluffy cloud case with iridescent glitter stars. Clear TPU with wavy bumper edges — the TikTok viral case everyone's obsessed with. Soft girl aesthetic meets shockproof protection.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8'],
+                stripeLink: "https://buy.stripe.com/7sYcN7exra7R0bP1113oAv"
             },
             {
                 id: 2,
@@ -605,7 +631,6 @@
         let currentProduct = null;
         let modalQty = 1;
         let selectedModel = null;
-        let stripe = null;
 
         function renderProducts() {
             const grid = document.getElementById('product-grid');
@@ -640,7 +665,6 @@
             document.getElementById('modal-tag').textContent = currentProduct.tag;
             document.getElementById('modal-price').textContent = `$${currentProduct.price.toFixed(2)}`;
             document.getElementById('modal-desc').textContent = currentProduct.desc;
-            document.getElementById('modal-btn-price').textContent = `$${currentProduct.price.toFixed(2)}`;
             document.getElementById('modal-qty').textContent = modalQty;
             
             document.getElementById('modal-models').innerHTML = currentProduct.models.map(m => `
@@ -648,6 +672,21 @@
                     ${m}
                 </button>
             `).join('');
+            
+            // Update Stripe Payment Link if this product has one
+            const stripeLinkBtn = document.getElementById('modal-stripe-link');
+            if (currentProduct.stripeLink) {
+                stripeLinkBtn.href = currentProduct.stripeLink;
+                stripeLinkBtn.style.display = 'flex';
+                stripeLinkBtn.innerHTML = `
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
+                    </svg>
+                    Buy Now — $${currentProduct.price.toFixed(2)}
+                `;
+            } else {
+                stripeLinkBtn.style.display = 'none';
+            }
             
             document.getElementById('product-modal').classList.remove('hidden');
         }
@@ -663,7 +702,6 @@
         function updateQty(delta) {
             modalQty = Math.max(1, Math.min(10, modalQty + delta));
             document.getElementById('modal-qty').textContent = modalQty;
-            document.getElementById('modal-btn-price').textContent = `$${(currentProduct.price * modalQty).toFixed(2)}`;
         }
 
         function closeProductModal() {
