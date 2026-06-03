@@ -24,6 +24,7 @@
                             butter: '#FFF3B0',
                             ink: '#2D1B4E',
                             cream: '#FFF9F0',
+                            gray: '#9CA3AF'
                         }
                     }
                 }
@@ -51,6 +52,8 @@
         .pay-divider::before, .pay-divider::after { content: ''; flex: 1; border-bottom: 1px solid #E5E7EB; }
         .pay-divider::before { margin-right: 10px; }
         .pay-divider::after { margin-left: 10px; }
+        .btn-disabled { background-color: #E5E7EB; color: #9CA3AF; cursor: not-allowed; border: none; }
+        .btn-disabled:hover { background-color: #E5E7EB; color: #9CA3AF; }
     </style>
 </head>
 <body class="font-body bg-pop-cream text-pop-ink antialiased overflow-x-hidden">
@@ -67,12 +70,11 @@
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#shop" class="font-medium hover:text-pop-pink transition">Shop</a>
                     <a href="#collections" class="font-medium hover:text-pop-lavender transition">Collections</a>
-                    <a href="#custom" class="font-medium hover:text-pop-mint transition">Custom</a>
                     <a href="#about" class="font-medium hover:text-pop-peach transition">About</a>
+                    <a href="mailto:xushijie511@outlook.com" class="font-medium hover:text-pop-mint transition">Contact</a>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <button class="p-2 hover:bg-pop-ink/5 rounded-full transition"><i class="fas fa-search"></i></button>
                     <button onclick="toggleCart()" class="relative p-2 hover:bg-pop-ink/5 rounded-full transition">
                         <i class="fas fa-shopping-bag"></i>
                         <span id="cart-badge" class="absolute -top-1 -right-1 bg-pop-pink text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
@@ -88,8 +90,8 @@
         <div class="p-6 pt-20 space-y-6">
             <a href="#shop" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Shop</a>
             <a href="#collections" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Collections</a>
-            <a href="#custom" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Custom</a>
             <a href="#about" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">About</a>
+            <a href="mailto:xushijie511@outlook.com" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Contact</a>
         </div>
     </div>
 
@@ -107,19 +109,17 @@
             </div>
         </div>
         
-        <!-- PAYMENT METHODS SECTION -->
         <div class="p-6 border-t bg-pop-cream/50">
             <div class="space-y-2 mb-4 text-sm">
                 <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="cart-subtotal" class="font-medium">$0.00</span></div>
-                <div class="flex justify-between"><span class="text-gray-600">Shipping</span><span class="text-green-600 font-medium">Free over $35</span></div>
-                <div class="flex justify-between font-bold text-lg pt-2 border-t">
-                    <span>Total</span>
-                    <span id="cart-total">$0.00</span>
-                </div>
+                <div class="flex justify-between"><span class="text-gray-600">Shipping</span><span class="text-gray-500 font-medium">Calculated at checkout</span></div>
+            </div>
+            <div class="flex justify-between text-lg font-bold mb-4 pt-2 border-t">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
             </div>
 
             <div id="payment-methods" class="space-y-2">
-                <!-- Apple Pay Button (Hidden on non-Apple devices) -->
                 <div id="apple-pay-container" class="hidden">
                     <button id="apple-pay-btn" onclick="initiateApplePay()" class="pay-btn apple-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -129,7 +129,6 @@
                     </button>
                 </div>
 
-                <!-- Google Pay Button -->
                 <div id="google-pay-container">
                     <button id="google-pay-btn" onclick="initiateGooglePay()" class="pay-btn google-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -142,7 +141,6 @@
                     </button>
                 </div>
 
-                <!-- PayPal Button -->
                 <div id="paypal-button-container">
                     <button onclick="initiatePayPal()" class="pay-btn paypal-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <i class="fab fa-paypal text-lg"></i>
@@ -152,7 +150,6 @@
 
                 <div class="pay-divider my-2">or pay with card</div>
 
-                <!-- Credit Card (Stripe) -->
                 <button onclick="showCardCheckout()" class="pay-btn card-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                     <i class="fas fa-credit-card"></i>
                     Card •••• 4242
@@ -178,27 +175,27 @@
             <div>
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full text-sm font-medium mb-6 shadow-sm border border-pop-ink/10">
                     <span class="w-2 h-2 bg-pop-pink rounded-full animate-pulse"></span>
-                    Only 5 Drops This Season ✦
+                    Coming Soon — Join the Waitlist
                 </div>
                 <h1 class="font-display text-5xl md:text-7xl font-bold leading-[0.95] mb-6">
                     Make Your Phone<br>
                     <span class="gradient-text">Uniquely You</span> ✦
                 </h1>
                 <p class="text-lg text-gray-600 mb-8 max-w-md leading-relaxed">
-                    Hand-picked designs for girls who don't do boring. Five exclusive drops, limited quantities — once they're gone, they're gone.
+                    Hand-picked designs for girls who don't do boring. Five exclusive drops, limited quantities — launching very soon.
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="#shop" class="bg-pop-ink text-white px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-xl flex items-center gap-2">
-                        Shop Now <i class="fas fa-arrow-right"></i>
+                        Preview Collection <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#custom" class="border-2 border-pop-ink px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink hover:text-white transition">
-                        Design Your Own
-                    </a>
+                    <button onclick="showWaitlistModal()" class="border-2 border-pop-ink px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink hover:text-white transition">
+                        Get Notified
+                    </button>
                 </div>
                 <div class="flex items-center gap-6 mt-10 text-sm text-gray-500">
-                    <span class="flex items-center gap-2"><i class="fas fa-heart text-pop-pink"></i> 50K+ Happy Girls</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-heart text-pop-pink"></i> 12K+ on Waitlist</span>
                     <span class="flex items-center gap-2"><i class="fas fa-leaf text-pop-mint"></i> Eco-Friendly</span>
-                    <span class="flex items-center gap-2"><i class="fas fa-shipping-fast text-pop-lavender"></i> Free Shipping</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-envelope text-pop-lavender"></i> xushijie511@outlook.com</span>
                 </div>
             </div>
             <div class="relative hidden md:block">
@@ -206,7 +203,7 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-pop-pink/20 to-pop-lavender/20 rounded-[3rem] rotate-3"></div>
                     <img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" alt="Cloud phone case" class="relative rounded-[2.5rem] shadow-2xl object-cover w-full h-full -rotate-3 hover:rotate-0 transition duration-500">
                     <div class="sticker -top-4 -right-4 bg-pop-butter px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm">
-                        Best Seller ⭐
+                        Coming Soon ⭐
                     </div>
                     <div class="sticker bottom-8 -left-8 bg-white px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm" style="animation-delay: -1.5s">
                         $22.99 ✦
@@ -219,38 +216,37 @@
     <!-- Marquee -->
     <div class="bg-pop-ink text-white py-4 overflow-hidden">
         <div class="marquee whitespace-nowrap font-display font-bold text-lg tracking-wide">
-            <span class="mx-8">ONLY 5 DROPS THIS SEASON</span>
+            <span class="mx-8">COMING SOON — JOIN THE WAITLIST</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">5 EXCLUSIVE DROPS</span>
             <span class="mx-8">✦</span>
             <span class="mx-8">LIMITED QUANTITIES</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">Y2K VIBES ONLY</span>
+            <span class="mx-8">NO RESTOCKS</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">CUTE & PROTECTIVE</span>
+            <span class="mx-8">EMAIL US: xushijie511@outlook.com</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">FREE SHIPPING OVER $35</span>
+            <span class="mx-8">COMING SOON — JOIN THE WAITLIST</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">ONLY 5 DROPS THIS SEASON</span>
+            <span class="mx-8">5 EXCLUSIVE DROPS</span>
             <span class="mx-8">✦</span>
             <span class="mx-8">LIMITED QUANTITIES</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">Y2K VIBES ONLY</span>
+            <span class="mx-8">NO RESTOCKS</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">CUTE & PROTECTIVE</span>
-            <span class="mx-8">✦</span>
-            <span class="mx-8">FREE SHIPPING OVER $35</span>
+            <span class="mx-8">EMAIL US: xushijie511@outlook.com</span>
             <span class="mx-8">✦</span>
         </div>
     </div>
 
-    <!-- Shop Section - 5 SKU ONLY -->
+    <!-- Shop Section - 5 SKU Preview -->
     <section id="shop" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">The Collection</p>
             <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">5 Drops. No Restocks. ✦</h2>
-            <p class="text-gray-600 max-w-lg mx-auto">Each design is hand-picked from our favorite makers. When they sell out, they're gone forever.</p>
+            <p class="text-gray-600 max-w-lg mx-auto">Preview our debut collection. Each design is hand-picked from our favorite makers. Sign up to be first in line when we launch.</p>
         </div>
 
-        <!-- 5 PRODUCT GRID -->
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
             <!-- Products injected via JS -->
         </div>
@@ -292,21 +288,91 @@
         </div>
     </section>
 
-    <!-- Custom Section -->
-    <section id="custom" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gradient-to-r from-pop-pink/10 via-pop-lavender/10 to-pop-mint/10 rounded-[3rem] p-8 md:p-16 text-center relative overflow-hidden">
+    <!-- Custom Section - Disabled/Gray -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-100 rounded-[3rem] p-8 md:p-16 text-center relative overflow-hidden">
             <div class="relative z-10">
-                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">Can't Find Your Vibe?</h2>
-                <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto">Upload your own photos, add stickers, text, and filters. Your case, your rules.</p>
-                <button class="bg-pop-ink text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-pop-ink/90 transition shadow-xl">
+                <span class="inline-block px-3 py-1 bg-gray-200 text-gray-500 text-xs font-bold rounded-full mb-4">COMING LATER</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-gray-400">Can't Find Your Vibe?</h2>
+                <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto">Custom case designer launching after our debut collection. Stay tuned.</p>
+                <button disabled class="btn-disabled px-10 py-4 rounded-2xl font-bold text-lg cursor-not-allowed">
                     Start Designing ✦
                 </button>
-                <div class="flex justify-center gap-4 mt-8 text-sm text-gray-500">
-                    <span><i class="fas fa-check text-pop-mint mr-1"></i> Upload Photos</span>
-                    <span><i class="fas fa-check text-pop-mint mr-1"></i> Add Text</span>
-                    <span><i class="fas fa-check text-pop-mint mr-1"></i> Stickers</span>
+                <p class="text-xs text-gray-400 mt-4">Custom cases available Q3 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">Our Story</p>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Made for Girls Who<br>Don't Do Boring ✦</h2>
+            </div>
+            
+            <div class="space-y-12">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-4">Why We Started</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Tired of walking into a store and seeing the same bland, black, and boring phone cases? So were we. CasePop was born from a simple belief: your phone case should be as unique as your Spotify playlist, as bold as your TikTok feed, and as extra as your morning iced coffee order.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            We're not just selling protection — we're selling self-expression. Every case in our debut collection is hand-picked from independent designers and small-batch makers who get it. No mass-market basics. No beige. Just pure, unfiltered vibe.
+                        </p>
+                    </div>
+                    <div class="bg-pop-cream rounded-3xl p-8 text-center">
+                        <div class="text-6xl mb-4">✨</div>
+                        <p class="font-display font-bold text-xl">"Your phone is the accessory you check 96 times a day. Make it worth looking at."</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-pop-pink/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-gem text-pop-pink text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Curated Drops</h4>
+                        <p class="text-sm text-gray-600">Only 5 designs per season. Once they sell out, they're gone forever. No restocks, no regrets.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-pop-lavender/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-pop-lavender text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Girl-Tested</h4>
+                        <p class="text-sm text-gray-600">Every case is tested by our community. If the group chat doesn't approve, it doesn't make the cut.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-pop-mint/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-leaf text-pop-mint text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Planet Conscious</h4>
+                        <p class="text-sm text-gray-600">Biodegradable options, minimal packaging, and carbon-offset shipping. Cute shouldn't cost the earth.</p>
+                    </div>
+                </div>
+
+                <div class="bg-pop-ink text-white rounded-3xl p-8 md:p-12 text-center">
+                    <h3 class="font-display text-3xl font-bold mb-4">Join the CasePop Girl Gang</h3>
+                    <p class="text-gray-300 mb-6 max-w-md mx-auto">Be the first to shop our debut drop. Get exclusive early access, behind-the-scenes content, and member-only discounts.</p>
+                    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pop-pink">
+                        <button onclick="showWaitlistModal()" class="px-8 py-3 bg-pop-pink rounded-full font-bold hover:bg-pop-pink/90 transition">Join Waitlist</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4">Questions? Email us at <a href="mailto:xushijie511@outlook.com" class="underline hover:text-white">xushijie511@outlook.com</a></p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Return Policy Banner -->
+    <section class="py-12 bg-gray-50 border-y border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <i class="fas fa-info-circle text-pop-ink"></i>
+                <span class="font-bold text-pop-ink">Return Policy</span>
+            </div>
+            <p class="text-gray-600 text-sm">All sales are final. We do not accept returns or exchanges. Each case is quality-checked before shipping. If your order arrives damaged, please contact us at <a href="mailto:xushijie511@outlook.com" class="text-pop-pink underline">xushijie511@outlook.com</a> within 48 hours with photos.</p>
         </div>
     </section>
 
@@ -328,7 +394,7 @@
     <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
             <h2 class="font-display text-3xl font-bold mb-2">#CasePopGirls</h2>
-            <p class="text-gray-600">Tag us to be featured ✦</p>
+            <p class="text-gray-600">Coming to your feed soon ✦</p>
         </div>
         <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
             <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.kwcdn.com/f841735660306ff823d9255a25c77645e074e5e5.jpeg" class="w-full h-full object-cover hover:scale-110 transition"></div>
@@ -347,21 +413,22 @@
                 <div>
                     <h3 class="font-display text-xl font-bold mb-4">Case<span class="text-pop-pink">Pop</span></h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Phone cases that match your energy. Designed for girls who don't do boring.</p>
+                    <p class="text-gray-500 text-xs mt-4">Launching Summer 2026</p>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4">Shop</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">The 5 Drops</a></li>
-                        <li><a href="#" class="hover:text-white transition">Custom Cases</a></li>
+                        <li><a href="#shop" class="hover:text-white transition">The 5 Drops</a></li>
+                        <li><span class="text-gray-600">Custom Cases (Soon)</span></li>
                         <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold mb-4">Help</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Shipping Info</a></li>
-                        <li><a href="#" class="hover:text-white transition">Returns</a></li>
-                        <li><a href="#" class="hover:text-white transition">Track Order</a></li>
+                        <li><span class="text-gray-600">Shipping Info (Soon)</span></li>
+                        <li><span class="text-gray-600 cursor-help" title="All sales are final. No returns or exchanges.">Returns: Not Accepted</span></li>
+                        <li><a href="mailto:xushijie511@outlook.com" class="hover:text-white transition">Contact Us</a></li>
                     </ul>
                 </div>
                 <div>
@@ -371,22 +438,16 @@
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-tiktok"></i></a>
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-pinterest"></i></a>
                     </div>
-                    <div class="flex gap-2 mt-2 text-xl text-gray-500">
-                        <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-amex"></i>
-                        <i class="fab fa-cc-paypal"></i>
-                        <i class="fab fa-apple-pay"></i>
-                        <i class="fab fa-google-pay"></i>
-                    </div>
+                    <p class="text-xs text-gray-500 mb-2">Questions?</p>
+                    <a href="mailto:xushijie511@outlook.com" class="text-sm text-pop-pink hover:underline">xushijie511@outlook.com</a>
                 </div>
             </div>
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-                <p> CasePop Inc. All rights reserved.</p>
+                <p> CasePop Inc. All rights reserved. Launching soon.</p>
                 <div class="flex gap-6">
                     <a href="#" class="hover:text-white">Privacy</a>
                     <a href="#" class="hover:text-white">Terms</a>
-                    <a href="#" class="hover:text-white">Cookies</a>
+                    <a href="#" class="hover:text-white">No Returns Policy</a>
                 </div>
             </div>
         </div>
@@ -403,7 +464,7 @@
             <div class="md:w-1/2 p-8 overflow-y-auto">
                 <div class="flex items-center gap-2 mb-2">
                     <span id="modal-tag" class="bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full"></span>
-                    <span class="text-gray-400 text-xs">Only 200 left</span>
+                    <span class="text-gray-400 text-xs">Coming Soon</span>
                 </div>
                 <h2 id="modal-title" class="font-display text-3xl font-bold mb-2"></h2>
                 <div class="flex items-center gap-2 mb-4">
@@ -430,7 +491,7 @@
                 <button onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
                     Add to Bag — <span id="modal-btn-price"></span>
                 </button>
-                <p class="text-xs text-gray-400 text-center">Limited drop — no restocks</p>
+                <p class="text-xs text-gray-400 text-center">Shipping calculated at checkout. No returns.</p>
             </div>
         </div>
     </div>
@@ -443,7 +504,6 @@
             
             <h2 class="font-display text-2xl font-bold mb-6">Card Payment ✦</h2>
             
-            <!-- STRIPE ELEMENTS MOUNT POINT -->
             <div id="stripe-card-element" class="border-2 border-gray-200 rounded-xl p-4 mb-4 min-h-[50px] flex items-center">
                 <p class="text-gray-400 text-sm">Stripe Card Element will mount here</p>
             </div>
@@ -458,8 +518,31 @@
             </button>
             
             <p class="text-xs text-center text-gray-400 mt-3">
-                <i class="fas fa-lock mr-1"></i> Encrypted by Stripe
+                <i class="fas fa-lock mr-1"></i> Encrypted by Stripe • All sales final
             </p>
+        </div>
+    </div>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlist-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeWaitlistModal()"></div>
+        <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 text-center">
+            <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
+            
+            <div class="w-16 h-16 bg-pop-pink/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bell text-pop-pink text-2xl"></i>
+            </div>
+            <h2 class="font-display text-2xl font-bold mb-2">You're In! ✦</h2>
+            <p class="text-gray-600 mb-6">We'll email you the moment our debut drop goes live. First access, exclusive pricing.</p>
+            
+            <div class="bg-pop-cream rounded-xl p-4 mb-4">
+                <p class="text-sm text-gray-600">Have questions before we launch?</p>
+                <a href="mailto:xushijie511@outlook.com" class="text-pop-pink font-bold text-sm hover:underline">xushijie511@outlook.com</a>
+            </div>
+            
+            <button onclick="closeWaitlistModal()" class="w-full bg-pop-ink text-white py-3 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
+                Got It
+            </button>
         </div>
     </div>
 
@@ -469,10 +552,7 @@
     <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 
     <script>
-        // ============================================
-        // 5 SKU PRODUCT DATA - 1688 SOURCED IMAGES
-        // ============================================
-        
+        // 5 SKU PRODUCT DATA
         const products = [
             {
                 id: 1,
@@ -527,7 +607,6 @@
         let selectedModel = null;
         let stripe = null;
 
-        // Render 5 Products
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = products.map((p, index) => `
@@ -539,7 +618,7 @@
                         </div>
                         <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">${p.tag}</div>
                         <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">
-                            ${200 - Math.floor(Math.random() * 50)} left
+                            ${150 + Math.floor(Math.random() * 50)} left
                         </div>
                     </div>
                     <div class="text-center">
@@ -680,7 +759,6 @@
             document.getElementById('overlay').classList.add('hidden');
         }
 
-        // Payment Methods
         function detectPaymentMethods() {
             if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
                 document.getElementById('apple-pay-container').classList.remove('hidden');
@@ -718,6 +796,14 @@
         function processCardPayment() {
             alert('Stripe card payment placeholder.');
             closeCardModal();
+        }
+
+        function showWaitlistModal() {
+            document.getElementById('waitlist-modal').classList.remove('hidden');
+        }
+
+        function closeWaitlistModal() {
+            document.getElementById('waitlist-modal').classList.add('hidden');
         }
 
         function clearCart() {
