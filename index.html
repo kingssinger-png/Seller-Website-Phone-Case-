@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CasePop - Phone Cases That Pop</title>
+
+    <!-- Stripe Buy Button Script -->
+    <script async
+      src="https://js.stripe.com/v3/buy-button.js">
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -57,7 +63,19 @@
         .btn-disabled { background-color: #E5E7EB; color: #9CA3AF; cursor: not-allowed; border: none; }
         .btn-disabled:hover { background-color: #E5E7EB; color: #9CA3AF; }
         .live-badge { background: linear-gradient(135deg, #00C853, #64DD17); }
+
+        /* Stripe Buy Button Container Styles */
+        .stripe-buy-container {
+            width: 100%;
+            min-height: 44px;
+        }
+        .stripe-buy-container stripe-buy-button {
+            --stripe-buy-button-background: #635BFF;
+            --stripe-buy-button-border-radius: 16px;
+            --stripe-buy-button-font-family: 'Space Grotesk', sans-serif;
+        }
     </style>
+<base target="_blank">
 </head>
 <body class="font-body bg-pop-cream text-pop-ink antialiased overflow-x-hidden">
 
@@ -69,7 +87,7 @@
                     Case<span class="text-pop-pink">Pop</span>
                     <span class="text-xs align-top ml-1">✦</span>
                 </a>
-                
+
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#shop" class="font-medium hover:text-pop-pink transition">Shop</a>
                     <a href="#collections" class="font-medium hover:text-pop-lavender transition">Collections</a>
@@ -111,7 +129,7 @@
                 <p class="text-sm mt-1">Time to treat yourself!</p>
             </div>
         </div>
-        
+
         <div class="p-6 border-t bg-pop-cream/50">
             <div class="space-y-2 mb-4 text-sm">
                 <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="cart-subtotal" class="font-medium">$0.00</span></div>
@@ -122,17 +140,18 @@
                 <span id="cart-total">$0.00</span>
             </div>
 
-            <div id="payment-methods" class="space-y-2">
-                <!-- STRIPE PAYMENT LINK FOR CLOUD NINE DREAM - LIVE -->
-                <a id="stripe-payment-link" href="https://buy.stripe.com/7sYcN7exra7R0bP1113oAv" target="_blank" class="pay-btn stripe-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 block text-center">
-                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
-                    </svg>
-                    Pay with Stripe — Cloud Nine Dream
-                </a>
-                
+            <div id="payment-methods" class="space-y-3">
+                <!-- STRIPE BUY BUTTON INTEGRATION -->
+                <div class="stripe-buy-container">
+                    <stripe-buy-button
+                      buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
+                      publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
+                    >
+                    </stripe-buy-button>
+                </div>
+
                 <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center">
-                    ⚡ LIVE PAYMENT — Cloud Nine Dream $22.99
+                    ⚡ LIVE — Stripe Checkout
                 </div>
 
                 <div class="pay-divider my-2">or other methods</div>
@@ -191,7 +210,7 @@
         <div class="blob bg-pop-pink w-96 h-96 top-20 -left-20"></div>
         <div class="blob bg-pop-lavender w-80 h-80 bottom-20 right-0" style="animation-delay: -5s"></div>
         <div class="blob bg-pop-mint w-64 h-64 top-1/2 left-1/2" style="animation-delay: -10s"></div>
-        
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div>
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full text-sm font-medium mb-6 shadow-sm border border-pop-ink/10">
@@ -331,7 +350,7 @@
                 <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">Our Story</p>
                 <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Made for Girls Who<br>Don't Do Boring ✦</h2>
             </div>
-            
+
             <div class="space-y-12">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
@@ -464,7 +483,7 @@
                 </div>
             </div>
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-                <p> CasePop Inc. All rights reserved. Launching soon.</p>
+                <p>© CasePop Inc. All rights reserved. Launching soon.</p>
                 <div class="flex gap-6">
                     <a href="#" class="hover:text-white">Privacy</a>
                     <a href="#" class="hover:text-white">Terms</a>
@@ -494,7 +513,7 @@
                 </div>
                 <p id="modal-price" class="text-3xl font-bold mb-4"></p>
                 <p id="modal-desc" class="text-gray-600 mb-6"></p>
-                
+
                 <div class="mb-6">
                     <label class="font-bold text-sm mb-2 block">Select Model</label>
                     <div class="flex flex-wrap gap-2" id="modal-models"></div>
@@ -509,16 +528,17 @@
                     </div>
                 </div>
 
-                <!-- STRIPE PAYMENT LINK BUTTON FOR CLOUD NINE DREAM - LIVE -->
-                <a id="modal-stripe-link" href="https://buy.stripe.com/7sYcN7exra7R0bP1113oAv" target="_blank" class="pay-btn stripe-btn w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 block text-center mb-3">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
-                    </svg>
-                    Buy Now — $22.99
-                </a>
-                
+                <!-- STRIPE BUY BUTTON INTEGRATION IN PRODUCT MODAL -->
+                <div id="modal-stripe-container" class="stripe-buy-container mb-3">
+                    <stripe-buy-button
+                      buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
+                      publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
+                    >
+                    </stripe-buy-button>
+                </div>
+
                 <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center mb-3">
-                    ⚡ LIVE PAYMENT — Stripe Checkout
+                    ⚡ LIVE — Stripe Checkout
                 </div>
 
                 <p class="text-xs text-gray-400 text-center">Shipping calculated at checkout. No returns.</p>
@@ -531,22 +551,22 @@
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCardModal()"></div>
         <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-md p-8">
             <button onclick="closeCardModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
-            
+
             <h2 class="font-display text-2xl font-bold mb-6">Card Payment ✦</h2>
-            
+
             <div id="stripe-card-element" class="border-2 border-gray-200 rounded-xl p-4 mb-4 min-h-[50px] flex items-center">
                 <p class="text-gray-400 text-sm">Stripe Card Element will mount here</p>
             </div>
-            
+
             <div class="flex justify-between text-sm mb-4">
                 <span class="text-gray-600">Total</span>
                 <span id="card-total" class="font-bold">$0.00</span>
             </div>
-            
+
             <button onclick="processCardPayment()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
                 Pay <span id="card-btn-total">$0.00</span>
             </button>
-            
+
             <p class="text-xs text-center text-gray-400 mt-3">
                 <i class="fas fa-lock mr-1"></i> Encrypted by Stripe • All sales final
             </p>
@@ -558,18 +578,18 @@
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeWaitlistModal()"></div>
         <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 text-center">
             <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
-            
+
             <div class="w-16 h-16 bg-pop-pink/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-bell text-pop-pink text-2xl"></i>
             </div>
             <h2 class="font-display text-2xl font-bold mb-2">You're In! ✦</h2>
             <p class="text-gray-600 mb-6">We'll email you the moment our debut drop goes live. First access, exclusive pricing.</p>
-            
+
             <div class="bg-pop-cream rounded-xl p-4 mb-4">
                 <p class="text-sm text-gray-600">Have questions before we launch?</p>
                 <a href="mailto:xushijie511@outlook.com" class="text-pop-pink font-bold text-sm hover:underline">xushijie511@outlook.com</a>
             </div>
-            
+
             <button onclick="closeWaitlistModal()" class="w-full bg-pop-ink text-white py-3 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
                 Got It
             </button>
@@ -586,8 +606,7 @@
                 tag: "Best Seller",
                 image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg",
                 desc: "3D fluffy cloud case with iridescent glitter stars. Clear TPU with wavy bumper edges — the TikTok viral case everyone's obsessed with. Soft girl aesthetic meets shockproof protection.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8'],
-                stripeLink: "https://buy.stripe.com/7sYcN7exra7R0bP1113oAv"
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
             },
             {
                 id: 2,
@@ -659,35 +678,20 @@
             currentProduct = products.find(p => p.id === id);
             modalQty = 1;
             selectedModel = currentProduct.models[0];
-            
+
             document.getElementById('modal-img').src = currentProduct.image;
             document.getElementById('modal-title').textContent = currentProduct.name;
             document.getElementById('modal-tag').textContent = currentProduct.tag;
             document.getElementById('modal-price').textContent = `$${currentProduct.price.toFixed(2)}`;
             document.getElementById('modal-desc').textContent = currentProduct.desc;
             document.getElementById('modal-qty').textContent = modalQty;
-            
+
             document.getElementById('modal-models').innerHTML = currentProduct.models.map(m => `
                 <button onclick="selectModel('${m}')" class="px-4 py-2 rounded-full border-2 text-sm font-medium transition ${selectedModel === m ? 'border-pop-ink bg-pop-ink text-white' : 'border-gray-200 hover:border-pop-pink'}">
                     ${m}
                 </button>
             `).join('');
-            
-            // Update Stripe Payment Link if this product has one
-            const stripeLinkBtn = document.getElementById('modal-stripe-link');
-            if (currentProduct.stripeLink) {
-                stripeLinkBtn.href = currentProduct.stripeLink;
-                stripeLinkBtn.style.display = 'flex';
-                stripeLinkBtn.innerHTML = `
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
-                    </svg>
-                    Buy Now — $${currentProduct.price.toFixed(2)}
-                `;
-            } else {
-                stripeLinkBtn.style.display = 'none';
-            }
-            
+
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
