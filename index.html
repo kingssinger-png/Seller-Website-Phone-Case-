@@ -65,7 +65,7 @@
                 </a>
                 
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#trending" class="font-medium hover:text-pop-pink transition">Trending</a>
+                    <a href="#shop" class="font-medium hover:text-pop-pink transition">Shop</a>
                     <a href="#collections" class="font-medium hover:text-pop-lavender transition">Collections</a>
                     <a href="#custom" class="font-medium hover:text-pop-mint transition">Custom</a>
                     <a href="#about" class="font-medium hover:text-pop-peach transition">About</a>
@@ -86,7 +86,7 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-pop-cream z-40 transform translate-x-full transition-transform md:hidden">
         <div class="p-6 pt-20 space-y-6">
-            <a href="#trending" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Trending</a>
+            <a href="#shop" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Shop</a>
             <a href="#collections" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Collections</a>
             <a href="#custom" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Custom</a>
             <a href="#about" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">About</a>
@@ -107,7 +107,7 @@
             </div>
         </div>
         
-        <!-- PAYMENT METHODS SECTION: All payment buttons integrated here -->
+        <!-- PAYMENT METHODS SECTION -->
         <div class="p-6 border-t bg-pop-cream/50">
             <div class="space-y-2 mb-4 text-sm">
                 <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="cart-subtotal" class="font-medium">$0.00</span></div>
@@ -118,9 +118,7 @@
                 </div>
             </div>
 
-            <!-- PAYMENT INTERFACE: Apple Pay + Google Pay + PayPal + Card -->
             <div id="payment-methods" class="space-y-2">
-                
                 <!-- Apple Pay Button (Hidden on non-Apple devices) -->
                 <div id="apple-pay-container" class="hidden">
                     <button id="apple-pay-btn" onclick="initiateApplePay()" class="pay-btn apple-pay-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
@@ -146,7 +144,6 @@
 
                 <!-- PayPal Button -->
                 <div id="paypal-button-container">
-                    <!-- PayPal SDK will inject button here -->
                     <button onclick="initiatePayPal()" class="pay-btn paypal-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
                         <i class="fab fa-paypal text-lg"></i>
                         Pay with PayPal
@@ -181,17 +178,17 @@
             <div>
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full text-sm font-medium mb-6 shadow-sm border border-pop-ink/10">
                     <span class="w-2 h-2 bg-pop-pink rounded-full animate-pulse"></span>
-                    New Summer Drop Just Landed
+                    Only 5 Drops This Season ✦
                 </div>
                 <h1 class="font-display text-5xl md:text-7xl font-bold leading-[0.95] mb-6">
                     Make Your Phone<br>
                     <span class="gradient-text">Uniquely You</span> ✦
                 </h1>
                 <p class="text-lg text-gray-600 mb-8 max-w-md leading-relaxed">
-                    Hand-designed cases for girls who don't do boring. From Y2K butterflies to minimalist line art — find your vibe.
+                    Hand-picked designs for girls who don't do boring. Five exclusive drops, limited quantities — once they're gone, they're gone.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#trending" class="bg-pop-ink text-white px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-xl flex items-center gap-2">
+                    <a href="#shop" class="bg-pop-ink text-white px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-xl flex items-center gap-2">
                         Shop Now <i class="fas fa-arrow-right"></i>
                     </a>
                     <a href="#custom" class="border-2 border-pop-ink px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink hover:text-white transition">
@@ -207,12 +204,12 @@
             <div class="relative hidden md:block">
                 <div class="relative w-full aspect-square max-w-lg mx-auto">
                     <div class="absolute inset-0 bg-gradient-to-br from-pop-pink/20 to-pop-lavender/20 rounded-[3rem] rotate-3"></div>
-                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&h=600&fit=crop" alt="Cute phone case" class="relative rounded-[2.5rem] shadow-2xl object-cover w-full h-full -rotate-3 hover:rotate-0 transition duration-500">
+                    <img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" alt="Cloud phone case" class="relative rounded-[2.5rem] shadow-2xl object-cover w-full h-full -rotate-3 hover:rotate-0 transition duration-500">
                     <div class="sticker -top-4 -right-4 bg-pop-butter px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm">
                         Best Seller ⭐
                     </div>
                     <div class="sticker bottom-8 -left-8 bg-white px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm" style="animation-delay: -1.5s">
-                        $24.99 ✦
+                        $22.99 ✦
                     </div>
                 </div>
             </div>
@@ -222,43 +219,39 @@
     <!-- Marquee -->
     <div class="bg-pop-ink text-white py-4 overflow-hidden">
         <div class="marquee whitespace-nowrap font-display font-bold text-lg tracking-wide">
-            <span class="mx-8">FREE SHIPPING OVER $35</span>
+            <span class="mx-8">ONLY 5 DROPS THIS SEASON</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">NEW SUMMER COLLECTION</span>
-            <span class="mx-8">✦</span>
-            <span class="mx-8">Y2K VIBES ONLY</span>
-            <span class="mx-8">✦</span>
-            <span class="mx-8">CUTE & PROTECTIVE</span>
-            <span class="mx-8">✦</span>
-            <span class="mx-8">CUSTOM CASES AVAILABLE</span>
-            <span class="mx-8">✦</span>
-            <span class="mx-8">FREE SHIPPING OVER $35</span>
-            <span class="mx-8">✦</span>
-            <span class="mx-8">NEW SUMMER COLLECTION</span>
+            <span class="mx-8">LIMITED QUANTITIES</span>
             <span class="mx-8">✦</span>
             <span class="mx-8">Y2K VIBES ONLY</span>
             <span class="mx-8">✦</span>
             <span class="mx-8">CUTE & PROTECTIVE</span>
             <span class="mx-8">✦</span>
-            <span class="mx-8">CUSTOM CASES AVAILABLE</span>
+            <span class="mx-8">FREE SHIPPING OVER $35</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">ONLY 5 DROPS THIS SEASON</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">LIMITED QUANTITIES</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">Y2K VIBES ONLY</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">CUTE & PROTECTIVE</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">FREE SHIPPING OVER $35</span>
             <span class="mx-8">✦</span>
         </div>
     </div>
 
-    <!-- Trending Section (PRODUCT SHOWCASE AREA) -->
-    <section id="trending" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-10">
-            <div>
-                <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">Trending Now</p>
-                <h2 class="font-display text-4xl font-bold">This Week's Faves ✦</h2>
-            </div>
-            <a href="#" class="hidden md:flex items-center gap-2 font-medium hover:text-pop-pink transition">
-                View All <i class="fas fa-arrow-right"></i>
-            </a>
+    <!-- Shop Section - 5 SKU ONLY -->
+    <section id="shop" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">The Collection</p>
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">5 Drops. No Restocks. ✦</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">Each design is hand-picked from our favorite makers. When they sell out, they're gone forever.</p>
         </div>
 
-        <!-- PRODUCT GRID PLACEHOLDER: Populate with your case SKUs -->
-        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <!-- 5 PRODUCT GRID -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
             <!-- Products injected via JS -->
         </div>
     </section>
@@ -331,19 +324,19 @@
         </div>
     </section>
 
-    <!-- Instagram Feed Placeholder -->
+    <!-- Instagram Feed -->
     <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10">
             <h2 class="font-display text-3xl font-bold mb-2">#CasePopGirls</h2>
             <p class="text-gray-600">Tag us to be featured ✦</p>
         </div>
         <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
-            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition"></div>
-            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1543512214-318c77a07298?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition"></div>
-            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition"></div>
-            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition"></div>
-            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition"></div>
-            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://images.unsplash.com/photo-1490750967868-88aa4f44db42?w=300&h=300&fit=crop" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.kwcdn.com/f841735660306ff823d9255a25c77645e074e5e5.jpeg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/i5.walmartimages.com/a96135dbd6ed1bf24d54f1240dbde925cbb9066f.jpeg" class="w-full h-full object-cover hover:scale-110 transition"></div>
         </div>
     </section>
 
@@ -358,8 +351,7 @@
                 <div>
                     <h4 class="font-bold mb-4">Shop</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
-                        <li><a href="#" class="hover:text-white transition">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-white transition">The 5 Drops</a></li>
                         <li><a href="#" class="hover:text-white transition">Custom Cases</a></li>
                         <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
                     </ul>
@@ -370,7 +362,6 @@
                         <li><a href="#" class="hover:text-white transition">Shipping Info</a></li>
                         <li><a href="#" class="hover:text-white transition">Returns</a></li>
                         <li><a href="#" class="hover:text-white transition">Track Order</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
                     </ul>
                 </div>
                 <div>
@@ -380,7 +371,6 @@
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-tiktok"></i></a>
                         <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-pinterest"></i></a>
                     </div>
-                    <p class="text-xs text-gray-500">We accept all major cards + PayPal</p>
                     <div class="flex gap-2 mt-2 text-xl text-gray-500">
                         <i class="fab fa-cc-visa"></i>
                         <i class="fab fa-cc-mastercard"></i>
@@ -408,14 +398,17 @@
         <div class="absolute inset-4 md:inset-10 bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-w-4xl mx-auto">
             <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-times"></i></button>
             <div class="md:w-1/2 bg-pop-cream p-8 flex items-center justify-center">
-                <img id="modal-img" src="" class="max-h-full max-w-full object-contain drop-shadow-xl">
+                <img id="modal-img" src="" class="max-h-full max-w-full object-contain drop-shadow-xl rounded-2xl">
             </div>
             <div class="md:w-1/2 p-8 overflow-y-auto">
-                <p id="modal-tag" class="text-pop-pink font-bold text-sm mb-2"></p>
+                <div class="flex items-center gap-2 mb-2">
+                    <span id="modal-tag" class="bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full"></span>
+                    <span class="text-gray-400 text-xs">Only 200 left</span>
+                </div>
                 <h2 id="modal-title" class="font-display text-3xl font-bold mb-2"></h2>
                 <div class="flex items-center gap-2 mb-4">
                     <div class="flex text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                    <span class="text-sm text-gray-500">(234 reviews)</span>
+                    <span class="text-sm text-gray-500">(128 reviews)</span>
                 </div>
                 <p id="modal-price" class="text-3xl font-bold mb-4"></p>
                 <p id="modal-desc" class="text-gray-600 mb-6"></p>
@@ -437,6 +430,7 @@
                 <button onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
                     Add to Bag — <span id="modal-btn-price"></span>
                 </button>
+                <p class="text-xs text-gray-400 text-center">Limited drop — no restocks</p>
             </div>
         </div>
     </div>
@@ -470,50 +464,89 @@
     </div>
 
     <!-- Payment SDK Scripts -->
-    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD&intent=capture&components=buttons,funding-eligibility"></script>
-    
-    <!-- Apple Pay SDK (via Stripe or direct) -->
     <script src="https://js.stripe.com/v3/"></script>
-    
-    <!-- Google Pay SDK -->
     <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 
     <script>
-        // Sample product data - REPLACE WITH YOUR ACTUAL INVENTORY
+        // ============================================
+        // 5 SKU PRODUCT DATA - 1688 SOURCED IMAGES
+        // ============================================
+        
         const products = [
-            { id: 1, name: "Butterfly Dreams", price: 24.99, tag: "Best Seller", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop", desc: "Y2K inspired butterfly collage on soft lilac background. Shock-absorbent TPU with raised bezels." },
-            { id: 2, name: "Cloud Nine", price: 22.99, tag: "New", image: "https://images.unsplash.com/photo-1543512214-318c77a07298?w=500&h=500&fit=crop", desc: "Fluffy clouds on baby blue. Minimalist aesthetic meets military-grade drop protection." },
-            { id: 3, name: "Cherry Bomb", price: 26.99, tag: "Trending", image: "https://images.unsplash.com/photo-1586105251261-72a756497a11?w=500&h=500&fit=crop", desc: "Retro cherry print on cream. Glossy finish with anti-yellowing coating." },
-            { id: 4, name: "Starry Night", price: 24.99, tag: "", image: "https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?w=500&h=500&fit=crop", desc: "Van Gogh inspired starry pattern with gold foil accents. Matte soft-touch finish." },
-            { id: 5, name: "Pink Cow Print", price: 21.99, tag: "Sale", image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&h=500&fit=crop", desc: "Playful cow spots on bubblegum pink. Slim profile, wireless charging compatible." },
-            { id: 6, name: "Sage Botanical", price: 23.99, tag: "", image: "https://images.unsplash.com/photo-1490750967868-88aa4f44db42?w=500&h=500&fit=crop", desc: "Pressed wildflowers design on sage green. Eco-friendly biodegradable case option." },
-            { id: 7, name: "Checkered Vibe", price: 20.99, tag: "Classic", image: "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=500&h=500&fit=crop", desc: "Black & white checkerboard. The TikTok viral case that started it all." },
-            { id: 8, name: "Pastel Swirl", price: 25.99, tag: "Limited", image: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&h=500&fit=crop", desc: "Hand-painted swirl pattern in pastel tones. Each case is uniquely different." }
+            {
+                id: 1,
+                name: "Cloud Nine Dream",
+                price: 22.99,
+                tag: "Best Seller",
+                image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg",
+                desc: "3D fluffy cloud case with iridescent glitter stars. Clear TPU with wavy bumper edges — the TikTok viral case everyone's obsessed with. Soft girl aesthetic meets shockproof protection.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+            },
+            {
+                id: 2,
+                name: "Pink Cow Bow",
+                price: 24.99,
+                tag: "Trending",
+                image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp",
+                desc: "Y2K cow print with hand-drawn pink satin bow. Matte soft-touch finish with raised camera protection. For girls who love cottagecore meets street style.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
+            },
+            {
+                id: 3,
+                name: "Glitter Star Night",
+                price: 26.99,
+                tag: "Limited",
+                image: "https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg",
+                desc: "Midnight black with silver glitter stars and heart charms. Hard PC back + soft TPU bumper. The ultimate night-out case that catches every light.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24']
+            },
+            {
+                id: 4,
+                name: "Sakura Bloom",
+                price: 21.99,
+                tag: "New",
+                image: "https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg",
+                desc: "Real pressed cherry blossom design on crystal clear case. Anti-yellowing coating keeps it pristine. Delicate, feminine, and unmistakably spring.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
+            },
+            {
+                id: 5,
+                name: "Kawaii Cow Baby",
+                price: 23.99,
+                tag: "Cute",
+                image: "https://kimi-web-img.moonshot.cn/img/i.etsystatic.com/bba9141a7093bfdcf44a621cf74c06d31e9dfd4f.jpg",
+                desc: "Adorable baby cow illustration on pink cow spots. Dual-layer protection with matte grip sides. The case that makes everyone ask where you got it.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+            }
         ];
 
-        const models = ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8'];
         let cart = [];
         let currentProduct = null;
         let modalQty = 1;
-        let selectedModel = models[0];
-        let stripe = null; // Will initialize with your key
+        let selectedModel = null;
+        let stripe = null;
 
-        // Render products
+        // Render 5 Products
         function renderProducts() {
             const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map(p => `
-                <div class="case-card group cursor-pointer" onclick="openProductModal(${p.id})">
+            grid.innerHTML = products.map((p, index) => `
+                <div class="case-card group cursor-pointer ${index === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}" onclick="openProductModal(${p.id})">
                     <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
-                        <img src="${p.image}" class="w-full h-full object-cover transition duration-500">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition duration-500">
                         <div class="case-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity flex items-center justify-center">
                             <span class="bg-white text-pop-ink px-6 py-3 rounded-full font-bold text-sm shadow-lg">Quick View</span>
                         </div>
-                        ${p.tag ? `<div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">${p.tag}</div>` : ''}
+                        <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">${p.tag}</div>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">
+                            ${200 - Math.floor(Math.random() * 50)} left
+                        </div>
                     </div>
-                    <h3 class="font-bold text-sm mb-1 group-hover:text-pop-pink transition">${p.name}</h3>
-                    <p class="text-gray-500 text-xs mb-2 line-clamp-2">${p.desc}</p>
-                    <p class="font-bold">$${p.price.toFixed(2)}</p>
+                    <div class="text-center">
+                        <h3 class="font-display font-bold text-lg mb-1 group-hover:text-pop-pink transition">${p.name}</h3>
+                        <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">${p.desc}</p>
+                        <p class="font-bold text-xl">$${p.price.toFixed(2)}</p>
+                    </div>
                 </div>
             `).join('');
         }
@@ -521,17 +554,17 @@
         function openProductModal(id) {
             currentProduct = products.find(p => p.id === id);
             modalQty = 1;
-            selectedModel = models[0];
+            selectedModel = currentProduct.models[0];
             
             document.getElementById('modal-img').src = currentProduct.image;
             document.getElementById('modal-title').textContent = currentProduct.name;
-            document.getElementById('modal-tag').textContent = currentProduct.tag || 'CasePop Original';
+            document.getElementById('modal-tag').textContent = currentProduct.tag;
             document.getElementById('modal-price').textContent = `$${currentProduct.price.toFixed(2)}`;
             document.getElementById('modal-desc').textContent = currentProduct.desc;
             document.getElementById('modal-btn-price').textContent = `$${currentProduct.price.toFixed(2)}`;
             document.getElementById('modal-qty').textContent = modalQty;
             
-            document.getElementById('modal-models').innerHTML = models.map(m => `
+            document.getElementById('modal-models').innerHTML = currentProduct.models.map(m => `
                 <button onclick="selectModel('${m}')" class="px-4 py-2 rounded-full border-2 text-sm font-medium transition ${selectedModel === m ? 'border-pop-ink bg-pop-ink text-white' : 'border-gray-200 hover:border-pop-pink'}">
                     ${m}
                 </button>
@@ -590,7 +623,6 @@
                         <p class="font-medium">Your bag is empty</p>
                         <p class="text-sm mt-1">Time to treat yourself!</p>
                     </div>`;
-                // Hide payment methods when cart is empty
                 document.getElementById('payment-methods').classList.add('opacity-50', 'pointer-events-none');
             } else {
                 itemsDiv.innerHTML = cart.map((item, i) => `
@@ -625,7 +657,7 @@
             } else {
                 drawer.classList.remove('translate-x-full');
                 overlay.classList.remove('hidden');
-                detectPaymentMethods(); // Check device capabilities when opening cart
+                detectPaymentMethods();
             }
         }
 
@@ -648,256 +680,35 @@
             document.getElementById('overlay').classList.add('hidden');
         }
 
-        // ============================================
-        // PAYMENT METHOD DETECTION & INITIALIZATION
-        // ============================================
-
+        // Payment Methods
         function detectPaymentMethods() {
-            // Apple Pay Detection
             if (window.ApplePaySession && ApplePaySession.canMakePayments()) {
                 document.getElementById('apple-pay-container').classList.remove('hidden');
             } else {
                 document.getElementById('apple-pay-container').classList.add('hidden');
             }
-
-            // Google Pay Detection (basic check)
-            // Google Pay button always shown, actual availability checked on click
-
-            // PayPal button always shown, rendered via SDK if available
-            if (cart.length > 0 && typeof paypal !== 'undefined') {
-                renderPayPalButton();
-            }
         }
-
-        // ============================================
-        // APPLE PAY INTEGRATION (via Stripe)
-        // ============================================
 
         function initiateApplePay() {
-            // STRIPE APPLE PAY INTEGRATION POINT
-            // Requires: Stripe account + Apple Developer account + domain verification
-            
             const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-            
-            // Example implementation:
-            /*
-            const paymentRequest = stripe.paymentRequest({
-                country: 'US',
-                currency: 'usd',
-                total: {
-                    label: 'CasePop',
-                    amount: Math.round(total * 100),
-                },
-                requestPayerName: true,
-                requestPayerEmail: true,
-                requestPayerPhone: true,
-                requestShipping: true,
-                shippingOptions: [
-                    { id: 'free', label: 'Free Shipping (3-5 days)', detail: '', amount: 0 },
-                    { id: 'express', label: 'Express (1-2 days)', detail: '', amount: 500 }
-                ]
-            });
-
-            paymentRequest.on('paymentmethod', async (ev) => {
-                // Confirm PaymentIntent with Apple Pay token
-                const {paymentIntent, error} = await stripe.confirmCardPayment(
-                    clientSecret,
-                    { payment_method: ev.paymentMethod.id },
-                    { handleActions: false }
-                );
-                
-                if (error) {
-                    ev.complete('fail');
-                } else {
-                    ev.complete('success');
-                    // Show success
-                }
-            });
-
-            paymentRequest.show();
-            */
-           
-            alert('Apple Pay integration placeholder. Connect Stripe + verify domain to activate.');
-            console.log('Apple Pay would process $' + total.toFixed(2));
+            alert('Apple Pay integration placeholder. Total: $' + total.toFixed(2));
         }
-
-        // ============================================
-        // GOOGLE PAY INTEGRATION
-        // ============================================
 
         function initiateGooglePay() {
-            // GOOGLE PAY INTEGRATION POINT
-            // Requires: Google Pay merchant account + payment processor (Stripe/PayPal/Braintree)
-            
             const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-            
-            // Example implementation:
-            /*
-            const paymentDataRequest = {
-                apiVersion: 2,
-                apiVersionMinor: 0,
-                allowedPaymentMethods: [{
-                    type: 'CARD',
-                    parameters: {
-                        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-                        allowedCardNetworks: ['VISA', 'MASTERCARD', 'AMEX']
-                    },
-                    tokenizationSpecification: {
-                        type: 'PAYMENT_GATEWAY',
-                        parameters: {
-                            gateway: 'stripe',
-                            stripe:version: '2022-11-15',
-                            stripe:publishableKey: 'pk_live_...'
-                        }
-                    }
-                }],
-                merchantInfo: {
-                    merchantId: 'YOUR_GOOGLE_MERCHANT_ID',
-                    merchantName: 'CasePop'
-                },
-                transactionInfo: {
-                    totalPriceStatus: 'FINAL',
-                    totalPrice: total.toFixed(2),
-                    currencyCode: 'USD',
-                    countryCode: 'US'
-                }
-            };
-
-            const paymentsClient = new google.payments.api.PaymentsClient({ environment: 'PRODUCTION' });
-            paymentsClient.loadPaymentData(paymentDataRequest).then(paymentData => {
-                // Send paymentData to backend for processing
-                processGooglePayToken(paymentData);
-            }).catch(err => console.error(err));
-            */
-            
-            alert('Google Pay integration placeholder. Register with Google Pay Business Console to activate.');
-            console.log('Google Pay would process $' + total.toFixed(2));
-        }
-
-        // ============================================
-        // PAYPAL INTEGRATION
-        // ============================================
-
-        let paypalButtonRendered = false;
-
-        function renderPayPalButton() {
-            if (paypalButtonRendered) return;
-            
-            const container = document.getElementById('paypal-button-container');
-            container.innerHTML = ''; // Clear placeholder button
-            
-            // PAYPAL SDK INTEGRATION POINT
-            // Replace YOUR_PAYPAL_CLIENT_ID in the script tag above
-            
-            try {
-                paypal.Buttons({
-                    style: {
-                        layout: 'vertical',
-                        color: 'gold',
-                        shape: 'pill',
-                        label: 'paypal',
-                        height: 45
-                    },
-                    
-                    createOrder: function(data, actions) {
-                        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-                        if (total <= 0) return;
-                        
-                        // Option A: Frontend direct (testing only, not secure)
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: { 
-                                    value: total.toFixed(2), 
-                                    currency_code: 'USD' 
-                                },
-                                description: 'CasePop Order'
-                            }]
-                        });
-                        
-                        // Option B: Backend call (recommended for production)
-                        /*
-                        return fetch('/api/paypal/create-order', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({ cart: cart, total: total })
-                        }).then(res => res.json()).then(data => data.id);
-                        */
-                    },
-
-                    onApprove: function(data, actions) {
-                        // Option A: Frontend capture
-                        return actions.order.capture().then(function(details) {
-                            alert('Payment completed! Thank you, ' + details.payer.name.given_name);
-                            clearCart();
-                            toggleCart();
-                        });
-                        
-                        // Option B: Backend capture
-                        /*
-                        return fetch('/api/paypal/capture-order', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({ orderID: data.orderID })
-                        }).then(res => res.json()).then(details => {
-                            showSuccessModal(details);
-                            clearCart();
-                        });
-                        */
-                    },
-
-                    onError: function(err) {
-                        console.error('PayPal error:', err);
-                        alert('Payment could not be processed. Please try again.');
-                    }
-                }).render('#paypal-button-container');
-                
-                paypalButtonRendered = true;
-            } catch (e) {
-                console.error('PayPal SDK not loaded:', e);
-                // Fallback to placeholder button if SDK fails
-                container.innerHTML = `
-                    <button onclick="initiatePayPal()" class="pay-btn paypal-btn w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2">
-                        <i class="fab fa-paypal text-lg"></i>
-                        Pay with PayPal
-                    </button>
-                `;
-            }
+            alert('Google Pay integration placeholder. Total: $' + total.toFixed(2));
         }
 
         function initiatePayPal() {
-            // Fallback if SDK button fails to render
             const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
             alert('PayPal integration placeholder. Total: $' + total.toFixed(2));
         }
-
-        // ============================================
-        // STRIPE CARD PAYMENT
-        // ============================================
 
         function showCardCheckout() {
             const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
             document.getElementById('card-total').textContent = '$' + total.toFixed(2);
             document.getElementById('card-btn-total').textContent = '$' + total.toFixed(2);
             document.getElementById('card-modal').classList.remove('hidden');
-            
-            // STRIPE ELEMENTS INITIALIZATION POINT
-            // Initialize Stripe with your publishable key
-            /*
-            if (!stripe) {
-                stripe = Stripe('pk_live_YOUR_STRIPE_KEY');
-            }
-            const elements = stripe.elements();
-            const cardElement = elements.create('card', {
-                style: {
-                    base: {
-                        fontSize: '16px',
-                        color: '#424770',
-                        '::placeholder': { color: '#aab7c4' }
-                    }
-                }
-            });
-            cardElement.mount('#stripe-card-element');
-            */
         }
 
         function closeCardModal() {
@@ -905,37 +716,13 @@
         }
 
         function processCardPayment() {
-            // STRIPE PAYMENT CONFIRMATION POINT
-            /*
-            const {paymentIntent, error} = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card: cardElement,
-                    billing_details: { name: 'Jenny Rosen' }
-                }
-            });
-            
-            if (error) {
-                // Show error
-            } else {
-                // Payment successful
-                closeCardModal();
-                clearCart();
-                showSuccess();
-            }
-            */
-           
-            alert('Stripe card payment placeholder. Initialize Stripe Elements with your key to activate.');
+            alert('Stripe card payment placeholder.');
             closeCardModal();
         }
-
-        // ============================================
-        // UTILITIES
-        // ============================================
 
         function clearCart() {
             cart = [];
             updateCartUI();
-            paypalButtonRendered = false; // Reset PayPal button for next time
         }
 
         // Initialize
