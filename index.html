@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CasePop - Phone Cases That Pop</title>
 
+    <!-- Stripe Buy Button Script -->
+    <script async
+      src="https://js.stripe.com/v3/buy-button.js">
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -60,18 +65,15 @@
         .live-badge { background: linear-gradient(135deg, #00C853, #64DD17); }
         .cart-item { transition: all 0.2s; }
         .cart-item:hover { background-color: #f9fafb; }
+
+        /* Stripe Buy Button wrapper */
+        .stripe-buy-wrapper {
+            width: 100%;
+            min-height: 44px;
+        }
     </style>
 <base target="_blank">
 </head>
-    <script async
-  src="https://js.stripe.com/v3/buy-button.js">
-</script>
-
-<stripe-buy-button
-  buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
-  publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
->
-</stripe-buy-button>
 <body class="font-body bg-pop-cream text-pop-ink antialiased overflow-x-hidden">
 
     <!-- Navigation -->
@@ -121,7 +123,7 @@
             <div class="text-center py-12 text-gray-400">
                 <div class="text-5xl mb-4">👜</div>
                 <p class="font-medium">Your bag is empty</p>
-                <p class="text-sm mt-1">Time to treat yourself!</p>
+                <p class="text-sm mt-1">Add items from the shop</p>
             </div>
         </div>
 
@@ -135,7 +137,6 @@
                 <span id="cart-total">$0.00</span>
             </div>
 
-            <!-- STRIPE CHECKOUT BUTTON -->
             <button id="checkout-btn" onclick="initiateStripeCheckout()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold text-lg hover:bg-pop-ink/90 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
@@ -230,16 +231,107 @@
         </div>
     </div>
 
-    <!-- Shop Section - 5 SKU -->
+    <!-- Shop Section - 5 SKU with Stripe Buy Buttons -->
     <section id="shop" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">The Collection</p>
             <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">5 Drops. No Restocks. ✦</h2>
-            <p class="text-gray-600 max-w-lg mx-auto">Preview our debut collection. Each design is hand-picked from our favorite makers. Sign up to be first in line when we launch.</p>
+            <p class="text-gray-600 max-w-lg mx-auto">Each product has its own Stripe Buy Button. Click to purchase instantly, or add to cart for combined checkout.</p>
         </div>
 
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
-            <!-- Products injected via JS -->
+            <!-- Product 1: Cloud Nine Dream -->
+            <div class="case-card group">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                    <img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" alt="Cloud Nine Dream" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">Best Seller</div>
+                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">187 left</div>
+                </div>
+                <div class="text-center mb-3">
+                    <h3 class="font-display font-bold text-lg mb-1">Cloud Nine Dream</h3>
+                    <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">3D fluffy cloud case with iridescent glitter stars. TikTok viral soft girl aesthetic.</p>
+                    <p class="font-bold text-xl">$22.99</p>
+                </div>
+                <!-- STRIPE BUY BUTTON -->
+                <div class="stripe-buy-wrapper mb-2">
+                    <stripe-buy-button
+                      buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
+                      publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
+                    >
+                    </stripe-buy-button>
+                </div>
+                <button onclick="addToCartFromGrid(1)" class="w-full bg-gray-100 text-pop-ink py-2 rounded-xl font-semibold text-sm hover:bg-gray-200 transition">
+                    <i class="fas fa-shopping-bag mr-1"></i> Add to Bag
+                </button>
+            </div>
+
+            <!-- Product 2: Pink Cow Bow -->
+            <div class="case-card group">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                    <img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp" alt="Pink Cow Bow" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">Trending</div>
+                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">156 left</div>
+                </div>
+                <div class="text-center mb-3">
+                    <h3 class="font-display font-bold text-lg mb-1">Pink Cow Bow</h3>
+                    <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">Y2K cow print with hand-drawn pink satin bow. Cottagecore meets street style.</p>
+                    <p class="font-bold text-xl">$24.99</p>
+                </div>
+                <button onclick="addToCartFromGrid(2)" class="w-full bg-pop-ink text-white py-3 rounded-xl font-bold text-sm hover:bg-pop-ink/90 transition mb-2">
+                    <i class="fas fa-shopping-bag mr-1"></i> Add to Bag — $24.99
+                </button>
+            </div>
+
+            <!-- Product 3: Glitter Star Night -->
+            <div class="case-card group">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                    <img src="https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg" alt="Glitter Star Night" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">Limited</div>
+                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">89 left</div>
+                </div>
+                <div class="text-center mb-3">
+                    <h3 class="font-display font-bold text-lg mb-1">Glitter Star Night</h3>
+                    <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">Midnight black with silver glitter stars. The ultimate night-out case.</p>
+                    <p class="font-bold text-xl">$26.99</p>
+                </div>
+                <button onclick="addToCartFromGrid(3)" class="w-full bg-pop-ink text-white py-3 rounded-xl font-bold text-sm hover:bg-pop-ink/90 transition mb-2">
+                    <i class="fas fa-shopping-bag mr-1"></i> Add to Bag — $26.99
+                </button>
+            </div>
+
+            <!-- Product 4: Sakura Bloom -->
+            <div class="case-card group">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                    <img src="https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg" alt="Sakura Bloom" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">New</div>
+                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">203 left</div>
+                </div>
+                <div class="text-center mb-3">
+                    <h3 class="font-display font-bold text-lg mb-1">Sakura Bloom</h3>
+                    <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">Real pressed cherry blossom on crystal clear case. Delicate and feminine.</p>
+                    <p class="font-bold text-xl">$21.99</p>
+                </div>
+                <button onclick="addToCartFromGrid(4)" class="w-full bg-pop-ink text-white py-3 rounded-xl font-bold text-sm hover:bg-pop-ink/90 transition mb-2">
+                    <i class="fas fa-shopping-bag mr-1"></i> Add to Bag — $21.99
+                </button>
+            </div>
+
+            <!-- Product 5: Kawaii Cow Baby -->
+            <div class="case-card group sm:col-span-2 lg:col-span-1">
+                <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                    <img src="https://kimi-web-img.moonshot.cn/img/i.etsystatic.com/bba9141a7093bfdcf44a621cf74c06d31e9dfd4f.jpg" alt="Kawaii Cow Baby" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">Cute</div>
+                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">134 left</div>
+                </div>
+                <div class="text-center mb-3">
+                    <h3 class="font-display font-bold text-lg mb-1">Kawaii Cow Baby</h3>
+                    <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">Adorable baby cow on pink spots. Everyone will ask where you got it.</p>
+                    <p class="font-bold text-xl">$23.99</p>
+                </div>
+                <button onclick="addToCartFromGrid(5)" class="w-full bg-pop-ink text-white py-3 rounded-xl font-bold text-sm hover:bg-pop-ink/90 transition mb-2">
+                    <i class="fas fa-shopping-bag mr-1"></i> Add to Bag — $23.99
+                </button>
+            </div>
         </div>
     </section>
 
@@ -444,49 +536,6 @@
         </div>
     </footer>
 
-    <!-- Product Quick View Modal -->
-    <div id="product-modal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
-        <div class="absolute inset-4 md:inset-10 bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-w-4xl mx-auto">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-times"></i></button>
-            <div class="md:w-1/2 bg-pop-cream p-8 flex items-center justify-center">
-                <img id="modal-img" src="" class="max-h-full max-w-full object-contain drop-shadow-xl rounded-2xl">
-            </div>
-            <div class="md:w-1/2 p-8 overflow-y-auto">
-                <div class="flex items-center gap-2 mb-2">
-                    <span id="modal-tag" class="bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full"></span>
-                    <span class="text-gray-400 text-xs">Coming Soon</span>
-                </div>
-                <h2 id="modal-title" class="font-display text-3xl font-bold mb-2"></h2>
-                <div class="flex items-center gap-2 mb-4">
-                    <div class="flex text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                    <span class="text-sm text-gray-500">(128 reviews)</span>
-                </div>
-                <p id="modal-price" class="text-3xl font-bold mb-4"></p>
-                <p id="modal-desc" class="text-gray-600 mb-6"></p>
-
-                <div class="mb-6">
-                    <label class="font-bold text-sm mb-2 block">Select Model</label>
-                    <div class="flex flex-wrap gap-2" id="modal-models"></div>
-                </div>
-
-                <div class="mb-6">
-                    <label class="font-bold text-sm mb-2 block">Quantity</label>
-                    <div class="flex items-center gap-3">
-                        <button onclick="updateQty(-1)" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-pop-pink"><i class="fas fa-minus text-sm"></i></button>
-                        <span id="modal-qty" class="text-xl font-bold w-8 text-center">1</span>
-                        <button onclick="updateQty(1)" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-pop-pink"><i class="fas fa-plus text-sm"></i></button>
-                    </div>
-                </div>
-
-                <button onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
-                    Add to Bag — <span id="modal-btn-price"></span>
-                </button>
-                <p class="text-xs text-gray-400 text-center">Shipping calculated at checkout. No returns.</p>
-            </div>
-        </div>
-    </div>
-
     <!-- Waitlist Modal -->
     <div id="waitlist-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeWaitlistModal()"></div>
@@ -512,57 +561,57 @@
 
     <script>
         // ============================================
-        // 5 PRODUCTS WITH STRIPE PRICE IDs
+        // 5 PRODUCTS DATA
         // ============================================
         const products = [
             {
                 id: 1,
                 name: "Cloud Nine Dream",
                 price: 22.99,
-                stripePriceId: "price_1TeTKRdlyHN6o9BiMuadh0O",  // Product 1
+                stripePriceId: "price_1TeTKRdlyHN6o9BiMuadh0O",
                 tag: "Best Seller",
                 image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg",
-                desc: "3D fluffy cloud case with iridescent glitter stars. Clear TPU with wavy bumper edges — the TikTok viral case everyone's obsessed with. Soft girl aesthetic meets shockproof protection.",
+                desc: "3D fluffy cloud case with iridescent glitter stars. TikTok viral soft girl aesthetic.",
                 models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
             },
             {
                 id: 2,
                 name: "Pink Cow Bow",
                 price: 24.99,
-                stripePriceId: "price_1TeVTcRdlyHN6o9BPkNU9Irp",  // Product 2
+                stripePriceId: "price_1TeVTcRdlyHN6o9BPkNU9Irp",
                 tag: "Trending",
                 image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp",
-                desc: "Y2K cow print with hand-drawn pink satin bow. Matte soft-touch finish with raised camera protection. For girls who love cottagecore meets street style.",
+                desc: "Y2K cow print with hand-drawn pink satin bow. Cottagecore meets street style.",
                 models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
             },
             {
                 id: 3,
                 name: "Glitter Star Night",
                 price: 26.99,
-                stripePriceId: "price_1TeVTtRdlyHN6o9Bgzm5mDly",  // Product 3
+                stripePriceId: "price_1TeVTtRdlyHN6o9Bgzm5mDly",
                 tag: "Limited",
                 image: "https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg",
-                desc: "Midnight black with silver glitter stars and heart charms. Hard PC back + soft TPU bumper. The ultimate night-out case that catches every light.",
+                desc: "Midnight black with silver glitter stars. The ultimate night-out case.",
                 models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24']
             },
             {
                 id: 4,
                 name: "Sakura Bloom",
                 price: 21.99,
-                stripePriceId: "price_1TeVUFRdlyHN6o9BtKMczLvk",  // Product 4
+                stripePriceId: "price_1TeVUFRdlyHN6o9BtKMczLvk",
                 tag: "New",
                 image: "https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg",
-                desc: "Real pressed cherry blossom design on crystal clear case. Anti-yellowing coating keeps it pristine. Delicate, feminine, and unmistakably spring.",
+                desc: "Real pressed cherry blossom on crystal clear case. Delicate and feminine.",
                 models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
             },
             {
                 id: 5,
                 name: "Kawaii Cow Baby",
                 price: 23.99,
-                stripePriceId: "price_1TeVUWRdlyHN6o9Be2i1p03C",  // Product 5
+                stripePriceId: "price_1TeVUWRdlyHN6o9Be2i1p03C",
                 tag: "Cute",
                 image: "https://kimi-web-img.moonshot.cn/img/i.etsystatic.com/bba9141a7093bfdcf44a621cf74c06d31e9dfd4f.jpg",
-                desc: "Adorable baby cow illustration on pink cow spots. Dual-layer protection with matte grip sides. The case that makes everyone ask where you got it.",
+                desc: "Adorable baby cow on pink spots. Everyone will ask where you got it.",
                 models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
             }
         ];
@@ -571,100 +620,37 @@
         // CART STATE
         // ============================================
         let cart = [];
-        let currentProduct = null;
-        let modalQty = 1;
-        let selectedModel = null;
 
         // ============================================
-        // RENDER PRODUCTS
+        // ADD TO CART FROM PRODUCT GRID
         // ============================================
-        function renderProducts() {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = products.map((p, index) => `
-                <div class="case-card group cursor-pointer ${index === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}" onclick="openProductModal(${p.id})">
-                    <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
-                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition duration-500">
-                        <div class="case-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity flex items-center justify-center">
-                            <span class="bg-white text-pop-ink px-6 py-3 rounded-full font-bold text-sm shadow-lg">Quick View</span>
-                        </div>
-                        <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">${p.tag}</div>
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">
-                            ${150 + Math.floor(Math.random() * 50)} left
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <h3 class="font-display font-bold text-lg mb-1 group-hover:text-pop-pink transition">${p.name}</h3>
-                        <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">${p.desc}</p>
-                        <p class="font-bold text-xl">$${p.price.toFixed(2)}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
+        function addToCartFromGrid(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
 
-        // ============================================
-        // PRODUCT MODAL
-        // ============================================
-        function openProductModal(id) {
-            currentProduct = products.find(p => p.id === id);
-            modalQty = 1;
-            selectedModel = currentProduct.models[0];
+            const defaultModel = product.models[0];
+            const existing = cart.find(item => item.id === productId && item.model === defaultModel);
 
-            document.getElementById('modal-img').src = currentProduct.image;
-            document.getElementById('modal-title').textContent = currentProduct.name;
-            document.getElementById('modal-tag').textContent = currentProduct.tag;
-            document.getElementById('modal-price').textContent = `$${currentProduct.price.toFixed(2)}`;
-            document.getElementById('modal-desc').textContent = currentProduct.desc;
-            document.getElementById('modal-btn-price').textContent = `$${currentProduct.price.toFixed(2)}`;
-            document.getElementById('modal-qty').textContent = modalQty;
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    model: defaultModel,
+                    qty: 1
+                });
+            }
 
-            document.getElementById('modal-models').innerHTML = currentProduct.models.map(m => `
-                <button onclick="selectModel('${m}')" class="px-4 py-2 rounded-full border-2 text-sm font-medium transition ${selectedModel === m ? 'border-pop-ink bg-pop-ink text-white' : 'border-gray-200 hover:border-pop-pink'}">
-                    ${m}
-                </button>
-            `).join('');
+            updateCartUI();
+            toggleCart();
 
-            document.getElementById('product-modal').classList.remove('hidden');
-        }
-
-        function selectModel(model) {
-            selectedModel = model;
-            document.querySelectorAll('#modal-models button').forEach(btn => {
-                const isSelected = btn.textContent.trim() === model;
-                btn.className = `px-4 py-2 rounded-full border-2 text-sm font-medium transition ${isSelected ? 'border-pop-ink bg-pop-ink text-white' : 'border-gray-200 hover:border-pop-pink'}`;
-            });
-        }
-
-        function updateQty(delta) {
-            modalQty = Math.max(1, Math.min(10, modalQty + delta));
-            document.getElementById('modal-qty').textContent = modalQty;
-            document.getElementById('modal-btn-price').textContent = `$${(currentProduct.price * modalQty).toFixed(2)}`;
-        }
-
-        function closeProductModal() {
-            document.getElementById('product-modal').classList.add('hidden');
+            // 显示添加成功提示
+            showNotification(`${product.name} added to bag!`);
         }
 
         // ============================================
         // CART OPERATIONS
         // ============================================
-        function addToCart() {
-            const existing = cart.find(item => 
-                item.id === currentProduct.id && item.model === selectedModel
-            );
-            if (existing) {
-                existing.qty += modalQty;
-            } else {
-                cart.push({ 
-                    ...currentProduct, 
-                    model: selectedModel, 
-                    qty: modalQty 
-                });
-            }
-            updateCartUI();
-            closeProductModal();
-            toggleCart();
-        }
-
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCartUI();
@@ -691,7 +677,7 @@
                     <div class="text-center py-12 text-gray-400">
                         <div class="text-5xl mb-4">👜</div>
                         <p class="font-medium">Your bag is empty</p>
-                        <p class="text-sm mt-1">Time to treat yourself!</p>
+                        <p class="text-sm mt-1">Add items from the shop</p>
                     </div>`;
                 checkoutBtn.disabled = true;
             } else {
@@ -728,14 +714,12 @@
         async function initiateStripeCheckout() {
             if (cart.length === 0) return;
 
-            // 构建 line_items 数组
             const lineItems = cart.map(item => ({
                 price: item.stripePriceId,
                 quantity: item.qty
             }));
 
             try {
-                // 调用后端 API 创建 Checkout Session
                 const response = await fetch('/api/create-checkout-session', {
                     method: 'POST',
                     headers: {
@@ -745,7 +729,6 @@
                         line_items: lineItems,
                         success_url: window.location.origin + '/success',
                         cancel_url: window.location.origin + '/cart',
-                        customer_email: null, // 可选，让用户在 Stripe 页面输入
                         shipping_address_collection: {
                             allowed_countries: ['US', 'CA', 'GB', 'AU']
                         }
@@ -757,14 +740,27 @@
                 }
 
                 const { url } = await response.json();
-
-                // 跳转到 Stripe Checkout
                 window.location.href = url;
 
             } catch (error) {
                 console.error('Checkout error:', error);
                 alert('Something went wrong. Please try again or contact xushijie511@outlook.com');
             }
+        }
+
+        // ============================================
+        // NOTIFICATION
+        // ============================================
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'fixed bottom-4 right-4 bg-pop-ink text-white px-6 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 animate-bounce';
+            notif.innerHTML = `<i class="fas fa-check-circle text-pop-mint"></i> ${message}`;
+            document.body.appendChild(notif);
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                notif.style.transform = 'translateY(20px)';
+                setTimeout(() => notif.remove(), 300);
+            }, 2000);
         }
 
         // ============================================
@@ -818,7 +814,6 @@
         // ============================================
         // INIT
         // ============================================
-        renderProducts();
         updateCartUI();
     </script>
 </body>
