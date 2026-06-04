@@ -41,7 +41,6 @@
             text-shadow: 2px 2px 0px #FF5C8A;
         }
 
-        /* 购物车悬浮按钮 */
         .cart-icon-container {
             position: absolute;
             top: 20px;
@@ -135,7 +134,6 @@
         <h1>✨ GirlyCase Co. ✨</h1>
         <p>Aesthetic phone cases for IT Girls • All Only $1.00</p>
         
-        <!-- 右上角购物车 -->
         <div class="cart-icon-container" onclick="checkout()">
             🛍️ Checkout <span class="cart-badge" id="cart-count">0</span>
         </div>
@@ -144,45 +142,39 @@
     <div class="container">
         <div class="grid">
             
-            <!-- 商品 1 -->
             <div class="product-card">
                 <div class="product-image case-1">🌸</div>
                 <div class="product-title">Pink Y2K Bow Case</div>
                 <div class="product-price">$1.00</div>
-                <!-- ⚠️ 这里需要填入你自己在 Stripe 后台创建该商品时生成的 Price ID（以 price_ 开头） -->
-                <button class="add-to-cart-btn" onclick="addToCart('price_12345_XXXX', 'Pink Y2K Bow Case')">Add to Cart 💖</button>
+                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTKRdlyHN6o9BiMuadh0O', 'Pink Y2K Bow Case')">Add to Cart 💖</button>
             </div>
 
-            <!-- 商品 2 -->
             <div class="product-card">
                 <div class="product-image case-2">💜</div>
                 <div class="product-title">Purple Butterfly Dream</div>
                 <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_12345_XXXX', 'Purple Butterfly Dream')">Add to Cart 💖</button>
+                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTcRdlyHN6o9BPkNU9lrp', 'Purple Butterfly Dream')">Add to Cart 💖</button>
             </div>
 
-            <!-- 商品 3 -->
             <div class="product-card">
                 <div class="product-image case-3">🐱</div>
                 <div class="product-title">Matcha Matcha Cat</div>
                 <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_12345_XXXX', 'Matcha Matcha Cat')">Add to Cart 💖</button>
+                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTtRdlyHN6o9Bgzm5mDly', 'Matcha Matcha Cat')">Add to Cart 💖</button>
             </div>
 
-            <!-- 商品 4 -->
             <div class="product-card">
                 <div class="product-image case-4">🌟</div>
                 <div class="product-title">Sparkle Like Star</div>
                 <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_12345_XXXX', 'Sparkle Like Star')">Add to Cart 💖</button>
+                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVUFRdlyHN6o9BtKMczLvk', 'Sparkle Like Star')">Add to Cart 💖</button>
             </div>
 
-            <!-- 商品 5 -->
             <div class="product-card">
                 <div class="product-image case-5">🍒</div>
                 <div class="product-title">Vintage Cherry Pop</div>
                 <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_12345_XXXX', 'Vintage Cherry Pop')">Add to Cart 💖</button>
+                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVUWRdlyHN6o9Be2i1p03C', 'Vintage Cherry Pop')">Add to Cart 💖</button>
             </div>
 
         </div>
@@ -190,7 +182,6 @@
 
     <footer><p>© 2026 GirlyCase Co.</p></footer>
 
-    <!-- 前端购物车逻辑 JS -->
     <script>
         let cart = JSON.parse(localStorage.getItem('girly_cart')) || [];
 
@@ -217,7 +208,6 @@
                 return;
             }
 
-            // 呼叫后台 Vercel Serverless Function
             const response = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -226,14 +216,13 @@
 
             const session = await response.json();
             if (session.url) {
-                localStorage.removeItem('girly_cart'); // 结账前清空本地购物车
-                window.location.href = session.url;   // 跳去 Stripe 官方收银台
+                localStorage.removeItem('girly_cart');
+                window.location.href = session.url;
             } else {
                 alert("Something went wrong. Please try again.");
             }
         }
 
-        // 页面加载时自动刷新右上角数字
         updateCartBadge();
     </script>
 </body>
