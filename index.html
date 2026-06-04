@@ -3,418 +3,814 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ GirlyCase Co. | Aesthetic Phone Cases ✨</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>CasePop - Phone Cases That Pop</title>
 
-    <style>
-        :root {
-            --pink-light: #FFE5EC;
-            --pink-main: #FF8FAB;
-            --pink-dark: #FB6F92;
-            --purple-light: #F0E6FF;
-            --text-color: #2B2D42;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--pink-light);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-            box-shadow: 0 4px 15px rgba(251, 111, 146, 0.3);
-            position: relative;
-        }
-
-        header h1 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 3rem;
-            margin: 0;
-            text-shadow: 2px 2px 0px #FF5C8A;
-        }
-
-        /* 右上角独立购物车按钮 */
-        .cart-icon-container {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 10;
-            transition: transform 0.2s;
-        }
-
-        .cart-icon-container:hover {
-            transform: scale(1.05);
-        }
-
-        .cart-badge {
-            background: var(--pink-dark);
-            color: white;
-            border-radius: 50%;
-            padding: 2px 8px;
-            font-size: 0.8rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            border: 3px solid white;
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--pink-main);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 240px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
-
-        .case-1 { background: #FFC6FF; }
-        .case-2 { background: #BDB2FF; }
-        .case-3 { background: #CAFFBF; }
-        .case-4 { background: #FDFFB6; }
-        .case-5 { background: #FFADAD; }
-
-        .product-title { font-size: 1.2rem; font-weight: 600; margin: 10px 0 5px 0; }
-        .product-price { font-size: 1.3rem; color: var(--pink-dark); font-weight: 700; margin-bottom: 15px; }
-
-        .add-to-cart-btn {
-            background-color: var(--pink-dark);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-        }
-
-        .add-to-cart-btn:hover { background-color: #E05375; }
-
-        /* 🌟 新增：侧边栏购物车面板样式 */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -350px; /* 默认隐藏在屏幕右侧外 */
-            width: 300px;
-            height: 100%;
-            background: white;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
-            transition: right 0.3s ease-in-out;
-            z-index: 100;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-sidebar.open {
-            right: 0; /* 激活时滑出 */
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--pink-light);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .cart-header h2 {
-            font-family: 'Fredoka', sans-serif;
-            margin: 0;
-            color: var(--pink-dark);
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #aaa;
-        }
-
-        .cart-items-list {
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px dashed var(--pink-light);
-        }
-
-        .cart-item-info {
-            text-align: left;
-        }
-
-        .cart-item-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .cart-item-qty {
-            font-size: 0.85rem;
-            color: #777;
-        }
-
-        .cart-footer {
-            border-top: 2px solid var(--pink-light);
-            padding-top: 20px;
-        }
-
-        .total-price-row {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .checkout-now-btn {
-            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(251, 111, 146, 0.3);
-        }
-
-        .checkout-now-btn:hover {
-            opacity: 0.9;
-        }
-
-        footer { text-align: center; padding: 40px 20px; color: #888; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>✨ GirlyCase Co. ✨</h1>
-        <p>Aesthetic phone cases for IT Girls • All Only $1.00</p>
-        
-        <!-- 右上角购物车按钮 -->
-        <div class="cart-icon-container" onclick="toggleCart()">
-            🛒 My Cart <span class="cart-badge" id="cart-count">0</span>
-        </div>
-    </header>
-
-    <!-- 🌟 新增：侧边栏购物车 HTML 结构 -->
-    <div class="cart-sidebar" id="sidebar-cart">
-        <div class="cart-header">
-            <h2>🛍️ Your Basket</h2>
-            <button class="close-cart" onclick="toggleCart()">✕</button>
-        </div>
-        
-        <!-- 存放被添加商品的无底洞 -->
-        <div class="cart-items-list" id="cart-items-container">
-            <!-- JS 会动态在这里塞入商品条目 -->
-        </div>
-
-        <div class="cart-footer">
-            <div class="total-price-row">
-                <span>Total:</span>
-                <span id="cart-total-price">$0.00</span>
-            </div>
-            <button class="checkout-now-btn" onclick="startStripeCheckout()">Secure Checkout 🔒</button>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="grid">
-            
-            <!-- 商品 1 -->
-            <div class="product-card">
-                <div class="product-image case-1">🌸</div>
-                <div class="product-title">Pink Y2K Bow Case</div>
-                <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTKRdlyHN6o9BiMuadh0O', 'Pink Y2K Bow Case')">Add to Cart 💖</button>
-            </div>
-
-            <!-- 商品 2 -->
-            <div class="product-card">
-                <div class="product-image case-2">💜</div>
-                <div class="product-title">Purple Butterfly Dream</div>
-                <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTcRdlyHN6o9BPkNU9lrp', 'Purple Butterfly Dream')">Add to Cart 💖</button>
-            </div>
-
-            <!-- 商品 3 -->
-            <div class="product-card">
-                <div class="product-image case-3">🐱</div>
-                <div class="product-title">Matcha Matcha Cat</div>
-                <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTtRdlyHN6o9Bgzm5mDly', 'Matcha Matcha Cat')">Add to Cart 💖</button>
-            </div>
-
-            <!-- 商品 4 -->
-            <div class="product-card">
-                <div class="product-image case-4">🌟</div>
-                <div class="product-title">Sparkle Like Star</div>
-                <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVUFRdlyHN6o9BtKMczLvk', 'Sparkle Like Star')">Add to Cart 💖</button>
-            </div>
-
-            <!-- 商品 5 -->
-            <div class="product-card">
-                <div class="product-image case-5">🍒</div>
-                <div class="product-title">Vintage Cherry Pop</div>
-                <div class="product-price">$1.00</div>
-                <button class="add-to-cart-btn" onclick="addToCart('price_1TeVUWRdlyHN6o9Be2i1p03C', 'Vintage Cherry Pop')">Add to Cart 💖</button>
-            </div>
-
-        </div>
-    </div>
-
-    <footer><p>© 2026 GirlyCase Co.</p></footer>
-
-    <!-- 全新升级的前端购物车全套控制逻辑 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        let cart = JSON.parse(localStorage.getItem('girly_cart')) || [];
-
-        // 切换侧边栏开/关
-        function toggleCart() {
-            document.getElementById('sidebar-cart').classList.toggle('open');
-            renderCartSidebar();
-        }
-
-        // 刷新右上角小气泡和侧边栏列表
-        function renderCartSidebar() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').innerText = totalItems;
-
-            const container = document.getElementById('cart-items-container');
-            container.innerHTML = ''; // 先清空旧内容
-
-            if (cart.length === 0) {
-                container.innerHTML = '<p style="color:#aaa; text-align:center; margin-top:40px;">Your cart is empty...<br>Go grab some cute cases! 💖</p>';
-                document.getElementById('cart-total-price').innerText = '$0.00';
-                return;
-            }
-
-            let totalMoney = 0;
-            cart.forEach(item => {
-                totalMoney += item.quantity * 1.00; // 每个产品都是固定的 $1.00
-                
-                const itemHtml = `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-qty">Qty: ${item.quantity}</div>
-                        </div>
-                        <div style="font-weight:600; color:var(--pink-dark);">$${(item.quantity * 1.00).toFixed(2)}</div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', itemHtml);
-            });
-
-            document.getElementById('cart-total-price').innerText = `$${totalMoney.toFixed(2)}`;
-        }
-
-        // 点击 Add to Cart 触发
-        function addToCart(priceId, name) {
-            const existingItem = cart.find(item => item.priceId === priceId);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ priceId: priceId, quantity: 1, name: name });
-            }
-            localStorage.setItem('girly_cart', JSON.stringify(cart));
-            renderCartSidebar();
-            
-            // 顺滑的用户体验：加完直接帮她把右侧购物车滑出来展示！
-            if (!document.getElementById('sidebar-cart').classList.contains('open')) {
-                document.getElementById('sidebar-cart').classList.add('open');
-            }
-        }
-
-        // 点击 Secure Checkout 🔒 按钮，真正飞去 Stripe 页面
-        async function startStripeCheckout() {
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-
-            // 按钮变成加载状态防止重复点击
-            const checkoutBtn = document.querySelector('.checkout-now-btn');
-            checkoutBtn.innerText = "Connecting to Stripe... 🚀";
-            checkoutBtn.disabled = true;
-
-            try {
-                const response = await fetch('/api/checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ cart: cart })
-                });
-
-                const session = await response.json();
-                if (session.url) {
-                    localStorage.removeItem('girly_cart'); // 临走前把本地小篮子倒空
-                    window.location.href = session.url;   // 飞跃到 Stripe
-                } else {
-                    alert("Stripe session creation failed. Please check Vercel logs.");
-                    checkoutBtn.innerText = "Secure Checkout 🔒";
-                    checkoutBtn.disabled = false;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        pop: {
+                            pink: '#FF6B9D',
+                            lavender: '#C77DFF',
+                            mint: '#95E1D3',
+                            peach: '#FFD6A5',
+                            butter: '#FFF3B0',
+                            ink: '#2D1B4E',
+                            cream: '#FFF9F0',
+                            gray: '#9CA3AF'
+                        }
+                    }
                 }
-            } catch (error) {
-                alert("Network error. Make sure your /api/checkout.js is deployed.");
-                checkoutBtn.innerText = "Secure Checkout 🔒";
+            }
+        }
+    </script>
+    <style>
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: float 20s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } }
+        .marquee { display: flex; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .case-card:hover .case-overlay { opacity: 1; }
+        .case-card:hover img { transform: scale(1.05); }
+        .sticker { position: absolute; animation: wiggle 3s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .gradient-text { background: linear-gradient(135deg, #FF6B9D, #C77DFF, #95E1D3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pay-btn { transition: all 0.2s; position: relative; overflow: hidden; }
+        .pay-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .pay-btn:active { transform: translateY(0); }
+        .apple-pay-btn { background: #000; color: white; }
+        .google-pay-btn { background: #fff; color: #3C4043; border: 1px solid #DADCE0; }
+        .paypal-btn { background: #0070BA; color: white; }
+        .card-btn { background: #2D1B4E; color: white; }
+        .stripe-btn { background: #635BFF; color: white; }
+        .stripe-btn:hover { background: #4f49cc; }
+        .pay-divider { display: flex; align-items: center; text-align: center; color: #9CA3AF; font-size: 12px; }
+        .pay-divider::before, .pay-divider::after { content: ''; flex: 1; border-bottom: 1px solid #E5E7EB; }
+        .pay-divider::before { margin-right: 10px; }
+        .pay-divider::after { margin-left: 10px; }
+        .btn-disabled { background-color: #E5E7EB; color: #9CA3AF; cursor: not-allowed; border: none; }
+        .btn-disabled:hover { background-color: #E5E7EB; color: #9CA3AF; }
+        .live-badge { background: linear-gradient(135deg, #00C853, #64DD17); }
+        .cart-item { transition: all 0.2s; }
+        .cart-item:hover { background-color: #f9fafb; }
+    </style>
+<base target="_blank">
+</head>
+<body class="font-body bg-pop-cream text-pop-ink antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-pop-cream/90 backdrop-blur-md z-50 border-b border-pop-ink/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="font-display text-2xl font-bold tracking-tight">
+                    Case<span class="text-pop-pink">Pop</span>
+                    <span class="text-xs align-top ml-1">✦</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#shop" class="font-medium hover:text-pop-pink transition">Shop</a>
+                    <a href="#collections" class="font-medium hover:text-pop-lavender transition">Collections</a>
+                    <a href="#about" class="font-medium hover:text-pop-peach transition">About</a>
+                    <a href="mailto:xushijie511@outlook.com" class="font-medium hover:text-pop-mint transition">Contact</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleCart()" class="relative p-2 hover:bg-pop-ink/5 rounded-full transition">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-pop-pink text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button class="md:hidden p-2" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-pop-cream z-40 transform translate-x-full transition-transform md:hidden">
+        <div class="p-6 pt-20 space-y-6">
+            <a href="#shop" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Shop</a>
+            <a href="#collections" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Collections</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">About</a>
+            <a href="mailto:xushijie511@outlook.com" onclick="toggleMobileMenu()" class="block text-2xl font-display font-bold">Contact</a>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-y-0 right-0 w-full md:w-[420px] bg-white z-50 transform translate-x-full transition-transform shadow-2xl flex flex-col">
+        <div class="p-6 border-b flex justify-between items-center bg-pop-cream/50">
+            <h2 class="font-display text-xl font-bold">Your Bag (<span id="cart-count">0</span>)</h2>
+            <button onclick="toggleCart()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-3">
+            <div class="text-center py-12 text-gray-400">
+                <div class="text-5xl mb-4">👜</div>
+                <p class="font-medium">Your bag is empty</p>
+                <p class="text-sm mt-1">Time to treat yourself!</p>
+            </div>
+        </div>
+
+        <div class="p-6 border-t bg-pop-cream/50">
+            <div class="space-y-2 mb-4 text-sm">
+                <div class="flex justify-between"><span class="text-gray-600">Subtotal</span><span id="cart-subtotal" class="font-medium">$0.00</span></div>
+                <div class="flex justify-between"><span class="text-gray-600">Shipping</span><span class="text-gray-500 font-medium">Calculated at checkout</span></div>
+            </div>
+            <div class="flex justify-between text-xl font-bold mb-4 pt-2 border-t border-pop-ink/10">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
+            </div>
+
+            <!-- STRIPE CHECKOUT BUTTON -->
+            <button id="checkout-btn" onclick="initiateStripeCheckout()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold text-lg hover:bg-pop-ink/90 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305z"/>
+                </svg>
+                Checkout with Stripe
+            </button>
+
+            <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center mt-2">
+                ⚡ LIVE — Secure Stripe Checkout
+            </div>
+
+            <p class="text-xs text-center text-gray-400 mt-3">
+                <i class="fas fa-lock mr-1"></i> SSL Secure • PCI Compliant
+            </p>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 hidden" onclick="closeAll()"></div>
+
+    <!-- Hero -->
+    <section class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+        <div class="blob bg-pop-pink w-96 h-96 top-20 -left-20"></div>
+        <div class="blob bg-pop-lavender w-80 h-80 bottom-20 right-0" style="animation-delay: -5s"></div>
+        <div class="blob bg-pop-mint w-64 h-64 top-1/2 left-1/2" style="animation-delay: -10s"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full text-sm font-medium mb-6 shadow-sm border border-pop-ink/10">
+                    <span class="w-2 h-2 bg-pop-pink rounded-full animate-pulse"></span>
+                    Coming Soon — Join the Waitlist
+                </div>
+                <h1 class="font-display text-5xl md:text-7xl font-bold leading-[0.95] mb-6">
+                    Make Your Phone<br>
+                    <span class="gradient-text">Uniquely You</span> ✦
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 max-w-md leading-relaxed">
+                    Hand-picked designs for girls who don't do boring. Five exclusive drops, limited quantities — launching very soon.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#shop" class="bg-pop-ink text-white px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-xl flex items-center gap-2">
+                        Preview Collection <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <button onclick="showWaitlistModal()" class="border-2 border-pop-ink px-8 py-4 rounded-2xl font-bold hover:bg-pop-ink hover:text-white transition">
+                        Get Notified
+                    </button>
+                </div>
+                <div class="flex items-center gap-6 mt-10 text-sm text-gray-500">
+                    <span class="flex items-center gap-2"><i class="fas fa-heart text-pop-pink"></i> 12K+ on Waitlist</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-leaf text-pop-mint"></i> Eco-Friendly</span>
+                    <span class="flex items-center gap-2"><i class="fas fa-envelope text-pop-lavender"></i> xushijie511@outlook.com</span>
+                </div>
+            </div>
+            <div class="relative hidden md:block">
+                <div class="relative w-full aspect-square max-w-lg mx-auto">
+                    <div class="absolute inset-0 bg-gradient-to-br from-pop-pink/20 to-pop-lavender/20 rounded-[3rem] rotate-3"></div>
+                    <img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" alt="Cloud phone case" class="relative rounded-[2.5rem] shadow-2xl object-cover w-full h-full -rotate-3 hover:rotate-0 transition duration-500">
+                    <div class="sticker -top-4 -right-4 bg-pop-butter px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm">
+                        Best Seller ⭐
+                    </div>
+                    <div class="sticker bottom-8 -left-8 bg-white px-4 py-2 rounded-2xl shadow-lg border-2 border-pop-ink font-bold text-sm" style="animation-delay: -1.5s">
+                        $22.99 ✦
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="bg-pop-ink text-white py-4 overflow-hidden">
+        <div class="marquee whitespace-nowrap font-display font-bold text-lg tracking-wide">
+            <span class="mx-8">COMING SOON — JOIN THE WAITLIST</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">5 EXCLUSIVE DROPS</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">LIMITED QUANTITIES</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">NO RESTOCKS</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">EMAIL US: xushijie511@outlook.com</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">COMING SOON — JOIN THE WAITLIST</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">5 EXCLUSIVE DROPS</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">LIMITED QUANTITIES</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">NO RESTOCKS</span>
+            <span class="mx-8">✦</span>
+            <span class="mx-8">EMAIL US: xushijie511@outlook.com</span>
+            <span class="mx-8">✦</span>
+        </div>
+    </div>
+
+    <!-- Shop Section - 5 SKU -->
+    <section id="shop" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">The Collection</p>
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">5 Drops. No Restocks. ✦</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">Preview our debut collection. Each design is hand-picked from our favorite makers. Sign up to be first in line when we launch.</p>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+            <!-- Products injected via JS -->
+        </div>
+    </section>
+
+    <!-- Collections -->
+    <section id="collections" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold mb-4">Shop by Vibe</h2>
+                <p class="text-gray-600 max-w-md mx-auto">Whatever your aesthetic, we've got a case that matches your energy.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="group relative aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=500&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <span class="text-white font-display font-bold text-xl">Y2K Revival</span>
+                    </div>
+                </div>
+                <div class="group relative aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4f44db42?w=400&h=500&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <span class="text-white font-display font-bold text-xl">Soft Girl</span>
+                    </div>
+                </div>
+                <div class="group relative aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=400&h=500&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <span class="text-white font-display font-bold text-xl">Dark Academia</span>
+                    </div>
+                </div>
+                <div class="group relative aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&h=500&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <span class="text-white font-display font-bold text-xl">Art Hoe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Section - Disabled/Gray -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-100 rounded-[3rem] p-8 md:p-16 text-center relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="inline-block px-3 py-1 bg-gray-200 text-gray-500 text-xs font-bold rounded-full mb-4">COMING LATER</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-gray-400">Can't Find Your Vibe?</h2>
+                <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto">Custom case designer launching after our debut collection. Stay tuned.</p>
+                <button disabled class="btn-disabled px-10 py-4 rounded-2xl font-bold text-lg cursor-not-allowed">
+                    Start Designing ✦
+                </button>
+                <p class="text-xs text-gray-400 mt-4">Custom cases available Q3 2026</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-pop-pink font-bold text-sm uppercase tracking-wider mb-2">Our Story</p>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Made for Girls Who<br>Don't Do Boring ✦</h2>
+            </div>
+
+            <div class="space-y-12">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="font-display text-2xl font-bold mb-4">Why We Started</h3>
+                        <p class="text-gray-600 leading-relaxed mb-4">
+                            Tired of walking into a store and seeing the same bland, black, and boring phone cases? So were we. CasePop was born from a simple belief: your phone case should be as unique as your Spotify playlist, as bold as your TikTok feed, and as extra as your morning iced coffee order.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            We're not just selling protection — we're selling self-expression. Every case in our debut collection is hand-picked from independent designers and small-batch makers who get it. No mass-market basics. No beige. Just pure, unfiltered vibe.
+                        </p>
+                    </div>
+                    <div class="bg-pop-cream rounded-3xl p-8 text-center">
+                        <div class="text-6xl mb-4">✨</div>
+                        <p class="font-display font-bold text-xl">"Your phone is the accessory you check 96 times a day. Make it worth looking at."</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-pop-pink/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-gem text-pop-pink text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Curated Drops</h4>
+                        <p class="text-sm text-gray-600">Only 5 designs per season. Once they sell out, they're gone forever. No restocks, no regrets.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-pop-lavender/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-pop-lavender text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Girl-Tested</h4>
+                        <p class="text-sm text-gray-600">Every case is tested by our community. If the group chat doesn't approve, it doesn't make the cut.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-pop-mint/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-leaf text-pop-mint text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Planet Conscious</h4>
+                        <p class="text-sm text-gray-600">Biodegradable options, minimal packaging, and carbon-offset shipping. Cute shouldn't cost the earth.</p>
+                    </div>
+                </div>
+
+                <div class="bg-pop-ink text-white rounded-3xl p-8 md:p-12 text-center">
+                    <h3 class="font-display text-3xl font-bold mb-4">Join the CasePop Girl Gang</h3>
+                    <p class="text-gray-300 mb-6 max-w-md mx-auto">Be the first to shop our debut drop. Get exclusive early access, behind-the-scenes content, and member-only discounts.</p>
+                    <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pop-pink">
+                        <button onclick="showWaitlistModal()" class="px-8 py-3 bg-pop-pink rounded-full font-bold hover:bg-pop-pink/90 transition">Join Waitlist</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-4">Questions? Email us at <a href="mailto:xushijie511@outlook.com" class="underline hover:text-white">xushijie511@outlook.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Return Policy Banner -->
+    <section class="py-12 bg-gray-50 border-y border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <i class="fas fa-info-circle text-pop-ink"></i>
+                <span class="font-bold text-pop-ink">Return Policy</span>
+            </div>
+            <p class="text-gray-600 text-sm">All sales are final. We do not accept returns or exchanges. Each case is quality-checked before shipping. If your order arrives damaged, please contact us at <a href="mailto:xushijie511@outlook.com" class="text-pop-pink underline">xushijie511@outlook.com</a> within 48 hours with photos.</p>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-20 bg-white border-y border-pop-ink/10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-8">As Seen On</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-40 grayscale">
+                <span class="font-display text-2xl font-bold">Cosmopolitan</span>
+                <span class="font-display text-2xl font-bold">Teen Vogue</span>
+                <span class="font-display text-2xl font-bold">Glossier</span>
+                <span class="font-display text-2xl font-bold">Refinery29</span>
+                <span class="font-display text-2xl font-bold">Pinterest</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed -->
+    <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="font-display text-3xl font-bold mb-2">#CasePopGirls</h2>
+            <p class="text-gray-600">Coming to your feed soon ✦</p>
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.kwcdn.com/f841735660306ff823d9255a25c77645e074e5e5.jpeg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden"><img src="https://kimi-web-img.moonshot.cn/img/i5.walmartimages.com/a96135dbd6ed1bf24d54f1240dbde925cbb9066f.jpeg" class="w-full h-full object-cover hover:scale-110 transition"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pop-ink text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="font-display text-xl font-bold mb-4">Case<span class="text-pop-pink">Pop</span></h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Phone cases that match your energy. Designed for girls who don't do boring.</p>
+                    <p class="text-gray-500 text-xs mt-4">Launching Summer 2026</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#shop" class="hover:text-white transition">The 5 Drops</a></li>
+                        <li><span class="text-gray-600">Custom Cases (Soon)</span></li>
+                        <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Help</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><span class="text-gray-600">Shipping Info (Soon)</span></li>
+                        <li><span class="text-gray-600 cursor-help" title="All sales are final. No returns or exchanges.">Returns: Not Accepted</span></li>
+                        <li><a href="mailto:xushijie511@outlook.com" class="hover:text-white transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Stay Pop</h4>
+                    <div class="flex gap-3 mb-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-pop-pink transition"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-2">Questions?</p>
+                    <a href="mailto:xushijie511@outlook.com" class="text-sm text-pop-pink hover:underline">xushijie511@outlook.com</a>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>© CasePop Inc. All rights reserved. Launching soon.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white">Privacy</a>
+                    <a href="#" class="hover:text-white">Terms</a>
+                    <a href="#" class="hover:text-white">No Returns Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Quick View Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        <div class="absolute inset-4 md:inset-10 bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-w-4xl mx-auto">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg"><i class="fas fa-times"></i></button>
+            <div class="md:w-1/2 bg-pop-cream p-8 flex items-center justify-center">
+                <img id="modal-img" src="" class="max-h-full max-w-full object-contain drop-shadow-xl rounded-2xl">
+            </div>
+            <div class="md:w-1/2 p-8 overflow-y-auto">
+                <div class="flex items-center gap-2 mb-2">
+                    <span id="modal-tag" class="bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full"></span>
+                    <span class="text-gray-400 text-xs">Coming Soon</span>
+                </div>
+                <h2 id="modal-title" class="font-display text-3xl font-bold mb-2"></h2>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="flex text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <span class="text-sm text-gray-500">(128 reviews)</span>
+                </div>
+                <p id="modal-price" class="text-3xl font-bold mb-4"></p>
+                <p id="modal-desc" class="text-gray-600 mb-6"></p>
+
+                <div class="mb-6">
+                    <label class="font-bold text-sm mb-2 block">Select Model</label>
+                    <div class="flex flex-wrap gap-2" id="modal-models"></div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="font-bold text-sm mb-2 block">Quantity</label>
+                    <div class="flex items-center gap-3">
+                        <button onclick="updateQty(-1)" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-pop-pink"><i class="fas fa-minus text-sm"></i></button>
+                        <span id="modal-qty" class="text-xl font-bold w-8 text-center">1</span>
+                        <button onclick="updateQty(1)" class="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-pop-pink"><i class="fas fa-plus text-sm"></i></button>
+                    </div>
+                </div>
+
+                <button onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
+                    Add to Bag — <span id="modal-btn-price"></span>
+                </button>
+                <p class="text-xs text-gray-400 text-center">Shipping calculated at checkout. No returns.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlist-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeWaitlistModal()"></div>
+        <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 text-center">
+            <button onclick="closeWaitlistModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full"><i class="fas fa-times"></i></button>
+
+            <div class="w-16 h-16 bg-pop-pink/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bell text-pop-pink text-2xl"></i>
+            </div>
+            <h2 class="font-display text-2xl font-bold mb-2">You're In! ✦</h2>
+            <p class="text-gray-600 mb-6">We'll email you the moment our debut drop goes live. First access, exclusive pricing.</p>
+
+            <div class="bg-pop-cream rounded-xl p-4 mb-4">
+                <p class="text-sm text-gray-600">Have questions before we launch?</p>
+                <a href="mailto:xushijie511@outlook.com" class="text-pop-pink font-bold text-sm hover:underline">xushijie511@outlook.com</a>
+            </div>
+
+            <button onclick="closeWaitlistModal()" class="w-full bg-pop-ink text-white py-3 rounded-2xl font-bold hover:bg-pop-ink/90 transition">
+                Got It
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 5 PRODUCTS WITH STRIPE PRICE IDs
+        // ============================================
+        const products = [
+            {
+                id: 1,
+                name: "Cloud Nine Dream",
+                price: 22.99,
+                stripePriceId: "price_1TeTKRdlyHN6o9BiMuadh0O",  // Product 1
+                tag: "Best Seller",
+                image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg",
+                desc: "3D fluffy cloud case with iridescent glitter stars. Clear TPU with wavy bumper edges — the TikTok viral case everyone's obsessed with. Soft girl aesthetic meets shockproof protection.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+            },
+            {
+                id: 2,
+                name: "Pink Cow Bow",
+                price: 24.99,
+                stripePriceId: "price_1TeVTcRdlyHN6o9BPkNU9Irp",  // Product 2
+                tag: "Trending",
+                image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp",
+                desc: "Y2K cow print with hand-drawn pink satin bow. Matte soft-touch finish with raised camera protection. For girls who love cottagecore meets street style.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
+            },
+            {
+                id: 3,
+                name: "Glitter Star Night",
+                price: 26.99,
+                stripePriceId: "price_1TeVTtRdlyHN6o9Bgzm5mDly",  // Product 3
+                tag: "Limited",
+                image: "https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg",
+                desc: "Midnight black with silver glitter stars and heart charms. Hard PC back + soft TPU bumper. The ultimate night-out case that catches every light.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24']
+            },
+            {
+                id: 4,
+                name: "Sakura Bloom",
+                price: 21.99,
+                stripePriceId: "price_1TeVUFRdlyHN6o9BtKMczLvk",  // Product 4
+                tag: "New",
+                image: "https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg",
+                desc: "Real pressed cherry blossom design on crystal clear case. Anti-yellowing coating keeps it pristine. Delicate, feminine, and unmistakably spring.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
+            },
+            {
+                id: 5,
+                name: "Kawaii Cow Baby",
+                price: 23.99,
+                stripePriceId: "price_1TeVUWRdlyHN6o9Be2i1p03C",  // Product 5
+                tag: "Cute",
+                image: "https://kimi-web-img.moonshot.cn/img/i.etsystatic.com/bba9141a7093bfdcf44a621cf74c06d31e9dfd4f.jpg",
+                desc: "Adorable baby cow illustration on pink cow spots. Dual-layer protection with matte grip sides. The case that makes everyone ask where you got it.",
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+            }
+        ];
+
+        // ============================================
+        // CART STATE
+        // ============================================
+        let cart = [];
+        let currentProduct = null;
+        let modalQty = 1;
+        let selectedModel = null;
+
+        // ============================================
+        // RENDER PRODUCTS
+        // ============================================
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map((p, index) => `
+                <div class="case-card group cursor-pointer ${index === 4 ? 'sm:col-span-2 lg:col-span-1' : ''}" onclick="openProductModal(${p.id})">
+                    <div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover transition duration-500">
+                        <div class="case-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity flex items-center justify-center">
+                            <span class="bg-white text-pop-ink px-6 py-3 rounded-full font-bold text-sm shadow-lg">Quick View</span>
+                        </div>
+                        <div class="absolute top-3 left-3 bg-pop-pink text-white text-xs font-bold px-3 py-1 rounded-full">${p.tag}</div>
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur text-pop-ink text-xs font-bold px-2 py-1 rounded-full">
+                            ${150 + Math.floor(Math.random() * 50)} left
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-display font-bold text-lg mb-1 group-hover:text-pop-pink transition">${p.name}</h3>
+                        <p class="text-gray-500 text-xs mb-2 line-clamp-2 px-2">${p.desc}</p>
+                        <p class="font-bold text-xl">$${p.price.toFixed(2)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // PRODUCT MODAL
+        // ============================================
+        function openProductModal(id) {
+            currentProduct = products.find(p => p.id === id);
+            modalQty = 1;
+            selectedModel = currentProduct.models[0];
+
+            document.getElementById('modal-img').src = currentProduct.image;
+            document.getElementById('modal-title').textContent = currentProduct.name;
+            document.getElementById('modal-tag').textContent = currentProduct.tag;
+            document.getElementById('modal-price').textContent = `$${currentProduct.price.toFixed(2)}`;
+            document.getElementById('modal-desc').textContent = currentProduct.desc;
+            document.getElementById('modal-btn-price').textContent = `$${currentProduct.price.toFixed(2)}`;
+            document.getElementById('modal-qty').textContent = modalQty;
+
+            document.getElementById('modal-models').innerHTML = currentProduct.models.map(m => `
+                <button onclick="selectModel('${m}')" class="px-4 py-2 rounded-full border-2 text-sm font-medium transition ${selectedModel === m ? 'border-pop-ink bg-pop-ink text-white' : 'border-gray-200 hover:border-pop-pink'}">
+                    ${m}
+                </button>
+            `).join('');
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function selectModel(model) {
+            selectedModel = model;
+            document.querySelectorAll('#modal-models button').forEach(btn => {
+                const isSelected = btn.textContent.trim() === model;
+                btn.className = `px-4 py-2 rounded-full border-2 text-sm font-medium transition ${isSelected ? 'border-pop-ink bg-pop-ink text-white' : 'border-gray-200 hover:border-pop-pink'}`;
+            });
+        }
+
+        function updateQty(delta) {
+            modalQty = Math.max(1, Math.min(10, modalQty + delta));
+            document.getElementById('modal-qty').textContent = modalQty;
+            document.getElementById('modal-btn-price').textContent = `$${(currentProduct.price * modalQty).toFixed(2)}`;
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // ============================================
+        // CART OPERATIONS
+        // ============================================
+        function addToCart() {
+            const existing = cart.find(item => 
+                item.id === currentProduct.id && item.model === selectedModel
+            );
+            if (existing) {
+                existing.qty += modalQty;
+            } else {
+                cart.push({ 
+                    ...currentProduct, 
+                    model: selectedModel, 
+                    qty: modalQty 
+                });
+            }
+            updateCartUI();
+            closeProductModal();
+            toggleCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartQty(index, delta) {
+            const item = cart[index];
+            item.qty = Math.max(1, Math.min(10, item.qty + delta));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((s, i) => s + i.qty, 0);
+            const badge = document.getElementById('cart-badge');
+            badge.textContent = count;
+            badge.classList.toggle('hidden', count === 0);
+            document.getElementById('cart-count').textContent = count;
+
+            const itemsDiv = document.getElementById('cart-items');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            if (cart.length === 0) {
+                itemsDiv.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <div class="text-5xl mb-4">👜</div>
+                        <p class="font-medium">Your bag is empty</p>
+                        <p class="text-sm mt-1">Time to treat yourself!</p>
+                    </div>`;
+                checkoutBtn.disabled = true;
+            } else {
+                itemsDiv.innerHTML = cart.map((item, i) => `
+                    <div class="cart-item flex gap-4 bg-gray-50 p-4 rounded-2xl">
+                        <img src="${item.image}" class="w-20 h-20 object-cover rounded-xl bg-white flex-shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm truncate">${item.name}</h4>
+                            <p class="text-xs text-gray-500 mb-1">${item.model}</p>
+                            <p class="text-xs text-pop-pink font-medium mb-2">$${item.price.toFixed(2)} each</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <button onclick="updateCartQty(${i}, -1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-pop-pink text-xs"><i class="fas fa-minus"></i></button>
+                                    <span class="text-sm font-bold w-6 text-center">${item.qty}</span>
+                                    <button onclick="updateCartQty(${i}, 1)" class="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:border-pop-pink text-xs"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <span class="font-bold">$${(item.price * item.qty).toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${i})" class="text-gray-400 hover:text-red-500 self-start p-1"><i class="fas fa-times"></i></button>
+                    </div>
+                `).join('');
                 checkoutBtn.disabled = false;
             }
+
+            const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-total').textContent = `$${subtotal.toFixed(2)}`;
         }
 
-        // 首次加载页面时，让小气泡数字归位
-        renderCartSidebar();
+        // ============================================
+        // STRIPE CHECKOUT — BACKEND INTEGRATION
+        // ============================================
+        async function initiateStripeCheckout() {
+            if (cart.length === 0) return;
+
+            // 构建 line_items 数组
+            const lineItems = cart.map(item => ({
+                price: item.stripePriceId,
+                quantity: item.qty
+            }));
+
+            try {
+                // 调用后端 API 创建 Checkout Session
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        line_items: lineItems,
+                        success_url: window.location.origin + '/success',
+                        cancel_url: window.location.origin + '/cart',
+                        customer_email: null, // 可选，让用户在 Stripe 页面输入
+                        shipping_address_collection: {
+                            allowed_countries: ['US', 'CA', 'GB', 'AU']
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create checkout session');
+                }
+
+                const { url } = await response.json();
+
+                // 跳转到 Stripe Checkout
+                window.location.href = url;
+
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Something went wrong. Please try again or contact xushijie511@outlook.com');
+            }
+        }
+
+        // ============================================
+        // UI HELPERS
+        // ============================================
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !drawer.classList.contains('translate-x-full');
+            if (isOpen) {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+            const isOpen = !menu.classList.contains('translate-x-full');
+            if (isOpen) {
+                menu.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            } else {
+                menu.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            }
+        }
+
+        function closeAll() {
+            document.getElementById('cart-drawer').classList.add('translate-x-full');
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+            document.getElementById('overlay').classList.add('hidden');
+        }
+
+        function showWaitlistModal() {
+            document.getElementById('waitlist-modal').classList.remove('hidden');
+        }
+
+        function closeWaitlistModal() {
+            document.getElementById('waitlist-modal').classList.add('hidden');
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+        }
+
+        // ============================================
+        // INIT
+        // ============================================
+        renderProducts();
+        updateCartUI();
     </script>
 </body>
 </html>
