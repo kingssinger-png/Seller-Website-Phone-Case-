@@ -64,12 +64,12 @@
         .btn-disabled:hover { background-color: #E5E7EB; color: #9CA3AF; }
         .live-badge { background: linear-gradient(135deg, #00C853, #64DD17); }
 
-        /* Stripe Buy Button Container Styles */
-        .stripe-buy-container {
+        /* Stripe Buy Button Container */
+        .stripe-buy-wrapper {
             width: 100%;
             min-height: 44px;
         }
-        .stripe-buy-container stripe-buy-button {
+        .stripe-buy-wrapper stripe-buy-button {
             --stripe-buy-button-background: #635BFF;
             --stripe-buy-button-border-radius: 16px;
             --stripe-buy-button-font-family: 'Space Grotesk', sans-serif;
@@ -140,21 +140,9 @@
                 <span id="cart-total">$0.00</span>
             </div>
 
-            <div id="payment-methods" class="space-y-3">
-                <!-- STRIPE BUY BUTTON INTEGRATION -->
-                <div class="stripe-buy-container">
-                    <stripe-buy-button
-                      buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
-                      publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
-                    >
-                    </stripe-buy-button>
-                </div>
-
-                <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center">
-                    ⚡ LIVE — Stripe Checkout
-                </div>
-
-                <div class="pay-divider my-2">or other methods</div>
+            <!-- Cart payment methods - NO Stripe Buy Button here -->
+            <div id="payment-methods" class="space-y-2">
+                <div class="pay-divider my-2">payment methods</div>
 
                 <!-- Apple Pay Button (Hidden on non-Apple devices) -->
                 <div id="apple-pay-container" class="hidden">
@@ -528,18 +516,24 @@
                     </div>
                 </div>
 
-                <!-- STRIPE BUY BUTTON INTEGRATION IN PRODUCT MODAL -->
-                <div id="modal-stripe-container" class="stripe-buy-container mb-3">
-                    <stripe-buy-button
-                      buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
-                      publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
-                    >
-                    </stripe-buy-button>
+                <!-- STRIPE BUY BUTTON - ONLY FOR CLOUD NINE DREAM (id: 1) -->
+                <div id="stripe-buy-section" class="mb-3" style="display: none;">
+                    <div class="stripe-buy-wrapper">
+                        <stripe-buy-button
+                          buy-button-id="buy_btn_1Te5NNRdlyHN6o9Bw3I886uC"
+                          publishable-key="pk_live_51Te479RdlyHN6o9Bvtj8hxsL7mWOjhI8vb2qn4ALSqkdZ8GNAS51f0q2wzu8nTtZCRTQTDE0qZXFb66ZPy9jRLIO006nIzV4qL"
+                        >
+                        </stripe-buy-button>
+                    </div>
+                    <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center mt-2">
+                        ⚡ LIVE — Stripe Checkout
+                    </div>
                 </div>
 
-                <div class="live-badge text-white text-xs font-bold px-3 py-1.5 rounded-lg text-center mb-3">
-                    ⚡ LIVE — Stripe Checkout
-                </div>
+                <!-- Add to Bag button for other products -->
+                <button id="modal-add-btn" onclick="addToCart()" class="w-full bg-pop-ink text-white py-4 rounded-2xl font-bold hover:bg-pop-ink/90 transition shadow-lg mb-3">
+                    Add to Bag
+                </button>
 
                 <p class="text-xs text-gray-400 text-center">Shipping calculated at checkout. No returns.</p>
             </div>
@@ -606,7 +600,8 @@
                 tag: "Best Seller",
                 image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/8b434be1a6ab42c6a74b3a80dfecac310e67690a.jpg",
                 desc: "3D fluffy cloud case with iridescent glitter stars. Clear TPU with wavy bumper edges — the TikTok viral case everyone's obsessed with. Soft girl aesthetic meets shockproof protection.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8'],
+                hasStripeBuy: true  // Only Cloud Nine Dream has Stripe Buy Button
             },
             {
                 id: 2,
@@ -615,7 +610,8 @@
                 tag: "Trending",
                 image: "https://kimi-web-img.moonshot.cn/img/img.ltwebstatic.com/d3101825047b27d7a1c9c3be522756d34a2152a1.webp",
                 desc: "Y2K cow print with hand-drawn pink satin bow. Matte soft-touch finish with raised camera protection. For girls who love cottagecore meets street style.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8'],
+                hasStripeBuy: false
             },
             {
                 id: 3,
@@ -624,7 +620,8 @@
                 tag: "Limited",
                 image: "https://kimi-web-img.moonshot.cn/img/ae-pic-a1.aliexpress-media.com/adbdb8bd1592839b0022924a813ae6398f943eb5.jpg",
                 desc: "Midnight black with silver glitter stars and heart charms. Hard PC back + soft TPU bumper. The ultimate night-out case that catches every light.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24']
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24'],
+                hasStripeBuy: false
             },
             {
                 id: 4,
@@ -633,7 +630,8 @@
                 tag: "New",
                 image: "https://kimi-web-img.moonshot.cn/img/ae01.alicdn.com/71f8a6b24a15daee8030232a29d1819754f8af90.jpg",
                 desc: "Real pressed cherry blossom design on crystal clear case. Anti-yellowing coating keeps it pristine. Delicate, feminine, and unmistakably spring.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8']
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'Samsung S24', 'Pixel 8'],
+                hasStripeBuy: false
             },
             {
                 id: 5,
@@ -642,7 +640,8 @@
                 tag: "Cute",
                 image: "https://kimi-web-img.moonshot.cn/img/i.etsystatic.com/bba9141a7093bfdcf44a621cf74c06d31e9dfd4f.jpg",
                 desc: "Adorable baby cow illustration on pink cow spots. Dual-layer protection with matte grip sides. The case that makes everyone ask where you got it.",
-                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8']
+                models: ['iPhone 15 Pro', 'iPhone 15', 'iPhone 14 Pro', 'iPhone 14', 'Samsung S24', 'Pixel 8'],
+                hasStripeBuy: false
             }
         ];
 
@@ -691,6 +690,18 @@
                     ${m}
                 </button>
             `).join('');
+
+            // Show/hide Stripe Buy Button based on product
+            const stripeSection = document.getElementById('stripe-buy-section');
+            const addBtn = document.getElementById('modal-add-btn');
+
+            if (currentProduct.hasStripeBuy) {
+                stripeSection.style.display = 'block';
+                addBtn.style.display = 'none';
+            } else {
+                stripeSection.style.display = 'none';
+                addBtn.style.display = 'block';
+            }
 
             document.getElementById('product-modal').classList.remove('hidden');
         }
