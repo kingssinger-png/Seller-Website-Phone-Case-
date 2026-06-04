@@ -23,6 +23,7 @@
             color: var(--text-color);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         header {
@@ -41,6 +42,7 @@
             text-shadow: 2px 2px 0px #FF5C8A;
         }
 
+        /* 右上角独立购物车按钮 */
         .cart-icon-container {
             position: absolute;
             top: 20px;
@@ -54,6 +56,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+
+        .cart-icon-container:hover {
+            transform: scale(1.05);
         }
 
         .cart-badge {
@@ -125,6 +133,107 @@
 
         .add-to-cart-btn:hover { background-color: #E05375; }
 
+        /* 🌟 新增：侧边栏购物车面板样式 */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -350px; /* 默认隐藏在屏幕右侧外 */
+            width: 300px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            transition: right 0.3s ease-in-out;
+            z-index: 100;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0; /* 激活时滑出 */
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--pink-light);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h2 {
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+            color: var(--pink-dark);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--pink-light);
+        }
+
+        .cart-item-info {
+            text-align: left;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .cart-item-qty {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .cart-footer {
+            border-top: 2px solid var(--pink-light);
+            padding-top: 20px;
+        }
+
+        .total-price-row {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .checkout-now-btn {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(251, 111, 146, 0.3);
+        }
+
+        .checkout-now-btn:hover {
+            opacity: 0.9;
+        }
+
         footer { text-align: center; padding: 40px 20px; color: #888; }
     </style>
 </head>
@@ -134,14 +243,37 @@
         <h1>✨ GirlyCase Co. ✨</h1>
         <p>Aesthetic phone cases for IT Girls • All Only $1.00</p>
         
-        <div class="cart-icon-container" onclick="checkout()">
-            🛍️ Checkout <span class="cart-badge" id="cart-count">0</span>
+        <!-- 右上角购物车按钮 -->
+        <div class="cart-icon-container" onclick="toggleCart()">
+            🛒 My Cart <span class="cart-badge" id="cart-count">0</span>
         </div>
     </header>
+
+    <!-- 🌟 新增：侧边栏购物车 HTML 结构 -->
+    <div class="cart-sidebar" id="sidebar-cart">
+        <div class="cart-header">
+            <h2>🛍️ Your Basket</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        
+        <!-- 存放被添加商品的无底洞 -->
+        <div class="cart-items-list" id="cart-items-container">
+            <!-- JS 会动态在这里塞入商品条目 -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="total-price-row">
+                <span>Total:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button class="checkout-now-btn" onclick="startStripeCheckout()">Secure Checkout 🔒</button>
+        </div>
+    </div>
 
     <div class="container">
         <div class="grid">
             
+            <!-- 商品 1 -->
             <div class="product-card">
                 <div class="product-image case-1">🌸</div>
                 <div class="product-title">Pink Y2K Bow Case</div>
@@ -149,6 +281,7 @@
                 <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTKRdlyHN6o9BiMuadh0O', 'Pink Y2K Bow Case')">Add to Cart 💖</button>
             </div>
 
+            <!-- 商品 2 -->
             <div class="product-card">
                 <div class="product-image case-2">💜</div>
                 <div class="product-title">Purple Butterfly Dream</div>
@@ -156,6 +289,7 @@
                 <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTcRdlyHN6o9BPkNU9lrp', 'Purple Butterfly Dream')">Add to Cart 💖</button>
             </div>
 
+            <!-- 商品 3 -->
             <div class="product-card">
                 <div class="product-image case-3">🐱</div>
                 <div class="product-title">Matcha Matcha Cat</div>
@@ -163,6 +297,7 @@
                 <button class="add-to-cart-btn" onclick="addToCart('price_1TeVTtRdlyHN6o9Bgzm5mDly', 'Matcha Matcha Cat')">Add to Cart 💖</button>
             </div>
 
+            <!-- 商品 4 -->
             <div class="product-card">
                 <div class="product-image case-4">🌟</div>
                 <div class="product-title">Sparkle Like Star</div>
@@ -170,6 +305,7 @@
                 <button class="add-to-cart-btn" onclick="addToCart('price_1TeVUFRdlyHN6o9BtKMczLvk', 'Sparkle Like Star')">Add to Cart 💖</button>
             </div>
 
+            <!-- 商品 5 -->
             <div class="product-card">
                 <div class="product-image case-5">🍒</div>
                 <div class="product-title">Vintage Cherry Pop</div>
@@ -182,14 +318,50 @@
 
     <footer><p>© 2026 GirlyCase Co.</p></footer>
 
+    <!-- 全新升级的前端购物车全套控制逻辑 -->
     <script>
         let cart = JSON.parse(localStorage.getItem('girly_cart')) || [];
 
-        function updateCartBadge() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-count').innerText = totalItems;
+        // 切换侧边栏开/关
+        function toggleCart() {
+            document.getElementById('sidebar-cart').classList.toggle('open');
+            renderCartSidebar();
         }
 
+        // 刷新右上角小气泡和侧边栏列表
+        function renderCartSidebar() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = ''; // 先清空旧内容
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="color:#aaa; text-align:center; margin-top:40px;">Your cart is empty...<br>Go grab some cute cases! 💖</p>';
+                document.getElementById('cart-total-price').innerText = '$0.00';
+                return;
+            }
+
+            let totalMoney = 0;
+            cart.forEach(item => {
+                totalMoney += item.quantity * 1.00; // 每个产品都是固定的 $1.00
+                
+                const itemHtml = `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-qty">Qty: ${item.quantity}</div>
+                        </div>
+                        <div style="font-weight:600; color:var(--pink-dark);">$${(item.quantity * 1.00).toFixed(2)}</div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHtml);
+            });
+
+            document.getElementById('cart-total-price').innerText = `$${totalMoney.toFixed(2)}`;
+        }
+
+        // 点击 Add to Cart 触发
         function addToCart(priceId, name) {
             const existingItem = cart.find(item => item.priceId === priceId);
             if (existingItem) {
@@ -198,32 +370,51 @@
                 cart.push({ priceId: priceId, quantity: 1, name: name });
             }
             localStorage.setItem('girly_cart', JSON.stringify(cart));
-            updateCartBadge();
-            alert(`🎉 Added ${name} to your cart!`);
+            renderCartSidebar();
+            
+            // 顺滑的用户体验：加完直接帮她把右侧购物车滑出来展示！
+            if (!document.getElementById('sidebar-cart').classList.contains('open')) {
+                document.getElementById('sidebar-cart').classList.add('open');
+            }
         }
 
-        async function checkout() {
+        // 点击 Secure Checkout 🔒 按钮，真正飞去 Stripe 页面
+        async function startStripeCheckout() {
             if (cart.length === 0) {
-                alert("Your cart is empty! Add some cute cases first 🛍️");
+                alert("Your cart is empty!");
                 return;
             }
 
-            const response = await fetch('/api/checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cart: cart })
-            });
+            // 按钮变成加载状态防止重复点击
+            const checkoutBtn = document.querySelector('.checkout-now-btn');
+            checkoutBtn.innerText = "Connecting to Stripe... 🚀";
+            checkoutBtn.disabled = true;
 
-            const session = await response.json();
-            if (session.url) {
-                localStorage.removeItem('girly_cart');
-                window.location.href = session.url;
-            } else {
-                alert("Something went wrong. Please try again.");
+            try {
+                const response = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cart: cart })
+                });
+
+                const session = await response.json();
+                if (session.url) {
+                    localStorage.removeItem('girly_cart'); // 临走前把本地小篮子倒空
+                    window.location.href = session.url;   // 飞跃到 Stripe
+                } else {
+                    alert("Stripe session creation failed. Please check Vercel logs.");
+                    checkoutBtn.innerText = "Secure Checkout 🔒";
+                    checkoutBtn.disabled = false;
+                }
+            } catch (error) {
+                alert("Network error. Make sure your /api/checkout.js is deployed.");
+                checkoutBtn.innerText = "Secure Checkout 🔒";
+                checkoutBtn.disabled = false;
             }
         }
 
-        updateCartBadge();
+        // 首次加载页面时，让小气泡数字归位
+        renderCartSidebar();
     </script>
 </body>
 </html>
