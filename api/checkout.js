@@ -1,5 +1,7 @@
 // 文件路径：/api/checkout.js
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   // 允许跨域请求（CORS）
@@ -25,12 +27,10 @@ export default async function handler(req, res) {
         quantity: item.quantity,
       }));
 
-      // 🚀 升级版创建 Session 逻辑
+      // 向 Stripe 申请安全的官方收银台
       const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
-        // 🌟 核心改变：让 Stripe 自动管理并启用你在后台开启的所有支付方式（含 Google/Apple Pay）
-        // 这样可以完美避开因为单独指定 'card' 导致的账户限制报错
         automatic_payment_methods: {
           enabled: true,
         },
